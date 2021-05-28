@@ -1,0 +1,13 @@
+{
+  "name": "lure",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Kazuya Takei <myself@attakei.net>",
+  "license": "Apache-2.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+       "pkgs/*"
+    ]
+  }
+}
