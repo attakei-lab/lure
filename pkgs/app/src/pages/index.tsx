@@ -1,40 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import firebase from 'firebase';
-import { useFirebaseAuth } from 'firebase-react-provider';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import { firebaseUIConfig } from '../config';
+import { FirebaseAppContext } from '../hooks/firebase';
 
 export const Page = () => {
-  const { appAuth, authConstructor } = useFirebaseAuth();
-  const [inProcess, setInProcess] = useState(true);
-
-  useEffect(() => {
-    const onWaiting = !(appAuth && authConstructor);
-    if (onWaiting) return;
-    setInProcess(false);
-  }, [appAuth, authConstructor]);
-
+  const { app } = useContext(FirebaseAppContext);
   return (
     <>
       <header>
         <h1>Lure</h1>
       </header>
-      {inProcess ? (
-        <main>
-          <p>ロード中</p>
-        </main>
-      ) : (
-        <main>
-          <p>
-            Lureは、小〜中規模組織向けのシンプルなドキュメント共有アプリケーションキットです。
-          </p>
-          <StyledFirebaseAuth
-            uiConfig={firebaseUIConfig}
-            firebaseAuth={appAuth}
-          />
-        </main>
-      )}
+      <main>
+        <p>
+          Lureは、小〜中規模組織向けのシンプルなドキュメント共有アプリケーションキットです。
+        </p>
+        <StyledFirebaseAuth
+          uiConfig={firebaseUIConfig}
+          firebaseAuth={app.auth()}
+        />
+      </main>
       <footer>
         <p>Powered by @attakei</p>
       </footer>
