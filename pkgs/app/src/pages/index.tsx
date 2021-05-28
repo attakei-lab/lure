@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
@@ -9,9 +9,6 @@ export const Page = () => {
   const { app } = useContext(FirebaseAppContext);
   return (
     <>
-      <header>
-        <h1>Lure</h1>
-      </header>
       <main>
         <p>
           Lureは、小〜中規模組織向けのシンプルなドキュメント共有アプリケーションキットです。
@@ -21,9 +18,6 @@ export const Page = () => {
           firebaseAuth={app.auth()}
         />
       </main>
-      <footer>
-        <p>Powered by @attakei</p>
-      </footer>
     </>
   );
 };

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
+import 'react';
 
 import { firebaseConfig } from '../config';
 import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
@@ -7,6 +7,9 @@ import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
 const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
   return (
     <FirebaseAppProvider config={firebaseConfig}>
+      <header>
+        <h1>Lure</h1>
+      </header>
       <FirebaseAppContext.Consumer>
         {(ctx) =>
           ctx.loading ? (
@@ -18,6 +21,9 @@ const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
           )
         }
       </FirebaseAppContext.Consumer>
+      <footer>
+        <p>Powered by @attakei</p>
+      </footer>
     </FirebaseAppProvider>
   );
 };

@@ -11,12 +11,14 @@ export type FirebaseApp = {
   loading: boolean;
   error: Error | null;
   app: firebase.app.App | null;
+  user: firebase.User | null;
 };
 
 export const FirebaseAppContext = createContext<FirebaseApp>({
   loading: true,
   error: null,
   app: null,
+  user: null,
 });
 
 // TODO: Fix type
@@ -27,6 +29,7 @@ export const FirebaseAppProvider: FC<PropsWithChildren<{ config: any }>> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error>(null);
   const [app, setApp] = useState<firebase.app.App>(null);
+  const [user, setUser] = useState<firebase.User>(null);
 
   useEffect(() => {
     try {
@@ -44,10 +47,13 @@ export const FirebaseAppProvider: FC<PropsWithChildren<{ config: any }>> = ({
     if (!app) return;
     console.debug('Initialize application');
     setLoading(false);
+    app.auth().onAuthStateChanged((user) => {
+      if (user) setUser(user);
+    });
   }, [app]);
 
   return (
-    <FirebaseAppContext.Provider value={{ loading, error, app }}>
+    <FirebaseAppContext.Provider value={{ loading, error, app, user }}>
       {children}
     </FirebaseAppContext.Provider>
   );
