@@ -1,0 +1,18 @@
+{
+  "name": "@attakei/lure-app",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "^10.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.8",
+    "eslint-plugin-react": "^7.23.2"
+  }
+}
