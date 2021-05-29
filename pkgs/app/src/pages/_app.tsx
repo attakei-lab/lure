@@ -2,6 +2,8 @@ import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import 'react';
 
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import LoginContainer from '../components/Login';
 import { firebaseConfig } from '../config';
 import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
@@ -10,9 +12,7 @@ const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
   const router = useRouter();
   return (
     <FirebaseAppProvider config={firebaseConfig}>
-      <header>
-        <h1>Lure</h1>
-      </header>
+      <Header />
       <FirebaseAppContext.Consumer>
         {(ctx) =>
           ctx.loading ? (
@@ -26,9 +26,7 @@ const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
           )
         }
       </FirebaseAppContext.Consumer>
-      <footer>
-        <p>Powered by @attakei</p>
-      </footer>
+      <Footer />
     </FirebaseAppProvider>
   );
 };
