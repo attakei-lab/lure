@@ -1,6 +1,8 @@
+import 'react';
+import 'semantic-ui-css/semantic.min.css';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import 'react';
+import { Container } from 'semantic-ui-react';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -20,24 +22,31 @@ const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
 
 const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
   const router = useRouter();
+  // TODO: use other styling
   return (
     <FirebaseAppProvider config={firebaseConfig}>
-      <Header />
-      <FirebaseAppContext.Consumer>
-        {(ctx) =>
-          ctx.loading ? (
-            <>Loading</>
-          ) : ctx.error ? (
-            <>{ctx.error}</>
-          ) : !ctx.user &&
-            !isPublicPage(router.pathname, appConfig.publicPages) ? (
-            <LoginContainer next={router.pathname} />
-          ) : (
-            <Component {...pageProps} />
-          )
-        }
-      </FirebaseAppContext.Consumer>
-      <Footer />
+      <div
+        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+      >
+        <Header />
+        <div style={{ marginTop: '5rem', paddingBottom: '2rem', flex: 1 }}>
+          <FirebaseAppContext.Consumer>
+            {(ctx) =>
+              ctx.loading ? (
+                <>Loading</>
+              ) : ctx.error ? (
+                <>{ctx.error}</>
+              ) : !ctx.user &&
+                !isPublicPage(router.pathname, appConfig.publicPages) ? (
+                <LoginContainer next={router.pathname} />
+              ) : (
+                <Component {...pageProps} />
+              )
+            }
+          </FirebaseAppContext.Consumer>
+        </div>
+        <Footer />
+      </div>
     </FirebaseAppProvider>
   );
 };
