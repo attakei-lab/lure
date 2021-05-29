@@ -46,8 +46,8 @@ export const FirebaseAppProvider: FC<PropsWithChildren<{ config: any }>> = ({
   useEffect(() => {
     if (!app) return;
     console.debug('Initialize application');
-    setLoading(false);
     app.auth().onAuthStateChanged((user) => {
+      setLoading(false);
       if (user) setUser(user);
     });
   }, [app]);

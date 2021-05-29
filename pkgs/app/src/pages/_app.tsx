@@ -1,10 +1,13 @@
 import { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import 'react';
 
+import LoginContainer from '../components/Login';
 import { firebaseConfig } from '../config';
 import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
 
 const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
+  const router = useRouter();
   return (
     <FirebaseAppProvider config={firebaseConfig}>
       <header>
@@ -16,6 +19,8 @@ const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
             <>Loading</>
           ) : ctx.error ? (
             <>{ctx.error}</>
+          ) : !ctx.user ? (
+            <LoginContainer next={router.pathname} />
           ) : (
             <Component {...pageProps} />
           )
