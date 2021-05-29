@@ -5,8 +5,18 @@ import 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoginContainer from '../components/Login';
-import { firebaseConfig } from '../config';
+import { appConfig, firebaseConfig } from '../config';
 import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
+
+const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
+  const matchedRule = rules.findIndex((rule) => {
+    if (typeof rule == 'string') {
+      return rule === path;
+    }
+    return path.match(rule) !== null;
+  });
+  return matchedRule >= 0;
+};
 
 const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -19,7 +29,8 @@ const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
             <>Loading</>
           ) : ctx.error ? (
             <>{ctx.error}</>
-          ) : !ctx.user ? (
+          ) : !ctx.user &&
+            !isPublicPage(router.pathname, appConfig.publicPages) ? (
             <LoginContainer next={router.pathname} />
           ) : (
             <Component {...pageProps} />
