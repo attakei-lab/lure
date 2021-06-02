@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
-import { FirebaseAppContext } from '../hooks/firebase';
+import { FirebaseAppContext } from '../../hooks/firebase';
 
 export const ContainerComponent = () => {
   const { user } = useContext(FirebaseAppContext);
