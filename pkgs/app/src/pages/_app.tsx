@@ -34,7 +34,9 @@ const App: (appProps: AppProps) => React.ReactElement = ({
         <div style={{ marginTop: '5rem', paddingBottom: '2rem', flex: 1 }}>
           <FirebaseAppContext.Consumer>
             {(ctx) =>
-              ctx.loading ? (
+              router.pathname === '/404' ? (
+                <Component {...pageProps} />
+              ) : ctx.loading ? (
                 <>Loading</>
               ) : ctx.error ? (
                 <>{ctx.error}</>
