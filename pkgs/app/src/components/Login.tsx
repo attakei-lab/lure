@@ -1,7 +1,7 @@
 import React, { useContext, FC } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import getConfig from 'next/config';
 
-import { firebaseUIConfig } from '../config';
 import { FirebaseAppContext } from '../hooks/firebase';
 
 export type Props = {
@@ -9,10 +9,12 @@ export type Props = {
 };
 
 export const Container: FC<Props> = ({ next }) => {
+  const { publicRuntimeConfig } = getConfig();
   const { app } = useContext(FirebaseAppContext);
   const uiConfig = {
-    ...firebaseUIConfig,
-    signInSuccessUrl: next || firebaseUIConfig.signInSuccessUrl || '/',
+    ...publicRuntimeConfig.firebaseUI,
+    signInSuccessUrl:
+      next || publicRuntimeConfig.firebaseUI.signInSuccessUrl || '/',
   };
   return (
     <>

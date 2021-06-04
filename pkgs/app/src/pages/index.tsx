@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
+import getConfig from 'next/config';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import { firebaseUIConfig } from '../config';
 import { FirebaseAppContext } from '../hooks/firebase';
 
 export const Page = () => {
   const { app } = useContext(FirebaseAppContext);
+  const { publicRuntimeConfig } = getConfig();
   return (
     <>
       <main>
@@ -13,7 +14,7 @@ export const Page = () => {
           Lureは、小〜中規模組織向けのシンプルなドキュメント共有アプリケーションキットです。
         </p>
         <StyledFirebaseAuth
-          uiConfig={firebaseUIConfig}
+          uiConfig={publicRuntimeConfig.firebaseUI}
           firebaseAuth={app.auth()}
         />
       </main>

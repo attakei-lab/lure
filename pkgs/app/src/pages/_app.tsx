@@ -1,12 +1,13 @@
-import React from 'react';
-import 'semantic-ui-css/semantic.min.css';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import React from 'react';
+import getConfig from 'next/config';
+import 'semantic-ui-css/semantic.min.css';
 
+import { getOptions } from '../config';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoginContainer from '../components/Login';
-import { appConfig, firebaseConfig } from '../config';
 import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
 
 const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
@@ -23,10 +24,12 @@ const App: (appProps: AppProps) => React.ReactElement = ({
   Component,
   pageProps,
 }) => {
+  const appOptions = getOptions();
+  const { publicRuntimeConfig } = getConfig();
   const router = useRouter();
   // TODO: use other styling
   return (
-    <FirebaseAppProvider config={firebaseConfig}>
+    <FirebaseAppProvider config={publicRuntimeConfig.firebase}>
       <div
         style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
       >
@@ -41,7 +44,7 @@ const App: (appProps: AppProps) => React.ReactElement = ({
               ) : ctx.error ? (
                 <>{ctx.error}</>
               ) : !ctx.user &&
-                !isPublicPage(router.pathname, appConfig.publicPages) ? (
+                !isPublicPage(router.pathname, appOptions.publicPages) ? (
                 <LoginContainer next={router.pathname} />
               ) : (
                 <Component {...pageProps} />
