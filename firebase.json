@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": "pkgs/app/out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/profile",
+        "destination": "/profile.html"
+      },
+      {
+        "source": "/about",
+        "destination": "/about.html"
+      }
+    ]
+  }
+}

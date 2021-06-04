@@ -1,6 +1,15 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/python,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,node
+# Created by https://www.toptal.com/developers/gitignore/api/python,node,firebase
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,node,firebase
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
 
 ### Node ###
 # Logs
@@ -274,4 +283,4 @@ Thumbs.db
 .prof
 
 
-# End of https://www.toptal.com/developers/gitignore/api/python,node
+# End of https://www.toptal.com/developers/gitignore/api/python,node,firebase
