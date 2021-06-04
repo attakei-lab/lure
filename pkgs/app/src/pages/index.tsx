@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import firebase from 'firebase';
+import React, { useContext } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import { firebaseUIConfig } from '../config';

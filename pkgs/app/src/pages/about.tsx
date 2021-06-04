@@ -1,5 +1,4 @@
-import 'react';
-import firebase from 'firebase';
+import React from 'react';
 
 export const Page = () => {
   return (

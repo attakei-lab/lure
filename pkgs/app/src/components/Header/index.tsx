@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
 import { FirebaseAppContext } from '../../hooks/firebase';
 

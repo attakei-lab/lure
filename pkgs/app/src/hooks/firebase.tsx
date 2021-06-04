@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import {
+import { FirebaseOptions } from '@firebase/app-types';
+import React, {
   createContext,
   useEffect,
   useState,
@@ -22,10 +23,9 @@ export const FirebaseAppContext = createContext<FirebaseApp>({
 });
 
 // TODO: Fix type
-export const FirebaseAppProvider: FC<PropsWithChildren<{ config: any }>> = ({
-  children,
-  config,
-}) => {
+export const FirebaseAppProvider: FC<
+  PropsWithChildren<{ config: FirebaseOptions }>
+> = ({ children, config }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error>(null);
   const [app, setApp] = useState<firebase.app.App>(null);

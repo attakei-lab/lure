@@ -1,8 +1,7 @@
-import 'react';
+import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { Container } from 'semantic-ui-react';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -20,7 +19,10 @@ const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
   return matchedRule >= 0;
 };
 
-const App: (appProps: AppProps) => any = ({ Component, pageProps }) => {
+const App: (appProps: AppProps) => React.ReactElement = ({
+  Component,
+  pageProps,
+}) => {
   const router = useRouter();
   // TODO: use other styling
   return (
