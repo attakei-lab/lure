@@ -11,6 +11,8 @@
     "build": "tsc"
   },
   "dependencies": {
+    "date-fns": "^2.22.1",
+    "firebase-admin": "^9.9.0",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
