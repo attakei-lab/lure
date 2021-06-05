@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import firebase from 'firebase';
-import { FirebaseAppContext, FirebaseApp } from '../../hooks/firebase';
+import { FirebaseAppContext, FirebaseApp } from '../../../hooks/firebase';
 import Header from '.';
 
 const renderComponent = (app: FirebaseApp) => {

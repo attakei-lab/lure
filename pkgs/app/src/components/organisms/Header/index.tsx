@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
-import { getOptions } from '../../config';
-import { FirebaseAppContext } from '../../hooks/firebase';
+import { useConfig } from '../../../hooks/config';
+import { FirebaseAppContext } from '../../../hooks/firebase';
 
 export const ContainerComponent = () => {
-  const { color } = getOptions();
+  const { appOptions } = useConfig();
   const { user } = useContext(FirebaseAppContext);
   return (
     <header>
-      <Menu inverted fixed="top" color={color}>
+      <Menu inverted fixed="top" color={appOptions.color}>
         <Container fluid>
           {/* TODO: use other styling */}
           <Menu.Item header style={{ fontWeight: 700, fontSize: '1.5rem' }}>

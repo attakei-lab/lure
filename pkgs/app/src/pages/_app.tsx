@@ -1,13 +1,12 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import React from 'react';
-import getConfig from 'next/config';
 import 'semantic-ui-css/semantic.min.css';
 
-import { getOptions } from '../config';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import LoginContainer from '../components/Login';
+import ErrorTemplate from '../components/templates/Error';
+import LoadingTemplate from '../components/templates/Loading';
+import LoginTemplate from '../components/templates/Login';
+import { AppConfigContext, AppConfigProvider } from '../hooks/config';
 import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
 
 const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
@@ -24,37 +23,32 @@ const App: (appProps: AppProps) => React.ReactElement = ({
   Component,
   pageProps,
 }) => {
-  const appOptions = getOptions();
-  const { publicRuntimeConfig } = getConfig();
   const router = useRouter();
-  // TODO: use other styling
   return (
-    <FirebaseAppProvider config={publicRuntimeConfig.firebase}>
-      <div
-        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
-      >
-        <Header />
-        <div style={{ marginTop: '5rem', paddingBottom: '2rem', flex: 1 }}>
-          <FirebaseAppContext.Consumer>
-            {(ctx) =>
-              router.pathname === '/404' ? (
-                <Component {...pageProps} />
-              ) : ctx.loading ? (
-                <>Loading</>
-              ) : ctx.error ? (
-                <>{ctx.error}</>
-              ) : !ctx.user &&
-                !isPublicPage(router.pathname, appOptions.publicPages) ? (
-                <LoginContainer next={router.pathname} />
-              ) : (
-                <Component {...pageProps} />
-              )
-            }
-          </FirebaseAppContext.Consumer>
-        </div>
-        <Footer />
-      </div>
-    </FirebaseAppProvider>
+    <AppConfigProvider>
+      <AppConfigContext.Consumer>
+        {({ firebase, appOptions }) => (
+          <FirebaseAppProvider config={firebase}>
+            <FirebaseAppContext.Consumer>
+              {(ctx) =>
+                router.pathname === '/404' ? (
+                  <Component {...pageProps} />
+                ) : ctx.loading ? (
+                  <LoadingTemplate />
+                ) : ctx.error ? (
+                  <ErrorTemplate error={ctx.error} />
+                ) : !ctx.user &&
+                  !isPublicPage(router.pathname, appOptions.publicPages) ? (
+                  <LoginTemplate next={router.pathname} />
+                ) : (
+                  <Component {...pageProps} />
+                )
+              }
+            </FirebaseAppContext.Consumer>
+          </FirebaseAppProvider>
+        )}
+      </AppConfigContext.Consumer>
+    </AppConfigProvider>
   );
 };
 
