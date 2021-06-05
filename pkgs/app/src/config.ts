@@ -11,7 +11,6 @@ export type AppOptions = {
 export type AppSettings = {
   firebase: FirebaseOptions;
   firebaseUI: firebaseui.auth.Config;
-  appOptions?: AppOptions;
 };
 
 export const defaultOptions: AppOptions = {
@@ -25,4 +24,6 @@ export const getOptions = (): AppOptions => {
   return { ...defaultOptions, ...appOptions };
 };
 
-export type AppConfig = AppSettings & AppOptions;
+export type AppConfig = AppSettings & {
+  appOptions?: AppOptions;
+};
