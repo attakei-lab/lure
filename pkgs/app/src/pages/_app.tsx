@@ -6,8 +6,8 @@ import 'semantic-ui-css/semantic.min.css';
 import ErrorTemplate from '../components/templates/Error';
 import LoadingTemplate from '../components/templates/Loading';
 import LoginTemplate from '../components/templates/Login';
-import { AppConfigContext, AppConfigProvider } from '../hooks/config';
-import { FirebaseAppContext, FirebaseAppProvider } from '../hooks/firebase';
+import { AppConfigContext, AppConfigProvider } from '../contexts/config';
+import { FirebaseAppContext, FirebaseAppProvider } from '../contexts/firebase';
 
 const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
   const matchedRule = rules.findIndex((rule) => {

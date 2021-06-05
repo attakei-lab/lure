@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import BaseLayout from '../components/templates/BaseLayout';
-import { FirebaseAppContext } from '../hooks/firebase';
+import { FirebaseAppContext } from '../contexts/firebase';
 
 export const Page = () => {
   const { user } = useContext(FirebaseAppContext);

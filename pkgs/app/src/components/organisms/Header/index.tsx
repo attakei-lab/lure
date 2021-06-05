@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
-import { useConfig } from '../../../hooks/config';
-import { FirebaseAppContext } from '../../../hooks/firebase';
+import { useConfig } from '../../../contexts/config';
+import { FirebaseAppContext } from '../../../contexts/firebase';
 
 export const ContainerComponent = () => {
   const { appOptions } = useConfig();

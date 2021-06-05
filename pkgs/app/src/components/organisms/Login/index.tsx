@@ -2,7 +2,7 @@ import getConfig from 'next/config';
 import React, { useContext } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Container, Header } from 'semantic-ui-react';
-import { FirebaseAppContext } from '../../../hooks/firebase';
+import { FirebaseAppContext } from '../../../contexts/firebase';
 
 export type Props = {
   headingText?: string;
