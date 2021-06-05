@@ -1,6 +1,6 @@
 import React from 'react';
-import BaseLayout from '../BaseLayout';
 import { Container } from 'semantic-ui-react';
+import BaseLayout from '../BaseLayout';
 
 export const View: React.FC = () => {
   return (

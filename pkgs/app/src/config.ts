@@ -1,6 +1,6 @@
 import { FirebaseOptions } from '@firebase/app-types';
-import getConfig from 'next/config';
 import firebaseui from 'firebaseui';
+import getConfig from 'next/config';
 import { SemanticCOLORS } from 'semantic-ui-react';
 
 export type AppOptions = {

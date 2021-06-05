@@ -1,5 +1,5 @@
-import firebase from 'firebase';
 import { FirebaseOptions } from '@firebase/app-types';
+import firebase from 'firebase';
 import React, {
   createContext,
   useEffect,

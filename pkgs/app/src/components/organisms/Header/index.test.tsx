@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, RenderResult, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { render, RenderResult, waitFor } from '@testing-library/react';
 import firebase from 'firebase';
+import React from 'react';
 import { FirebaseAppContext, FirebaseApp } from '../../../contexts/firebase';
 import Header from '.';
 

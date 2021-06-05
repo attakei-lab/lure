@@ -1,6 +1,6 @@
-import React from 'react';
-import { render, RenderResult, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { render, RenderResult, waitFor } from '@testing-library/react';
+import React from 'react';
 import Footer from '.';
 
 describe('Footer', () => {
