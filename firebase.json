@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "pkgs/app/out",
+    "public": "pkgs/frontend/out",
     "ignore": [
       "firebase.json",
       "**/.*",
