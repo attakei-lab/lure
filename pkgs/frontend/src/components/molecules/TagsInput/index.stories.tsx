@@ -5,8 +5,7 @@ import { Props, View } from '.';
 const ViewTemplate = ({ ...args }: Props) => <View {...args} />;
 
 const defaultProps: Props = {
-  handleInput: (input) => input,
-  input: '',
+  handleTags: (tags) => tags,
   label: 'Tags',
   placeholder: 'Input tags',
   tags: [],
@@ -15,12 +14,6 @@ const defaultProps: Props = {
 
 export const Init = ViewTemplate.bind({});
 Init.args = defaultProps;
-
-export const Editing = ViewTemplate.bind({});
-Editing.args = {
-  ...defaultProps,
-  input: 'sample',
-};
 
 export const WithTags = ViewTemplate.bind({});
 WithTags.args = {
@@ -36,6 +29,6 @@ WithColoredTags.args = {
 };
 
 export default {
-  title: 'molecules/TagEditInput',
+  title: 'molecules/TagInput',
   component: View,
 } as Meta;

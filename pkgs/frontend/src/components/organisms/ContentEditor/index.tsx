@@ -4,43 +4,40 @@ import MarkdownEditor from '../../molecules/MarkdownEditor';
 import TagsInput from '../../molecules/TagsInput';
 
 export type Props = {
-  handleBodyInput: (input: string) => void;
-  handleTagsInput: (input: string) => void;
-  handleTitleInput: (input: string) => void;
-  bodyInput: string;
+  handleBody: (input: string) => void;
+  handleTags: (input: string[]) => void;
+  handleTitle: (input: string) => void;
+  body: string;
   tags: string[];
-  tagsInput: string;
-  titleInput: string;
+  title: string;
 };
 
 export const View: React.FC<Props> = ({
-  handleBodyInput,
-  handleTagsInput,
-  handleTitleInput,
-  bodyInput,
+  handleBody,
+  handleTags,
+  handleTitle,
+  body,
   tags,
-  tagsInput,
-  titleInput,
+  title,
 }) => (
   <>
     <Form.Input
       fluid
       label="タイトル"
-      onChange={(e) => handleTitleInput(e.target.value)}
+      onChange={(e) => handleTitle(e.target.value)}
       placeholder="タイトルを入力"
-      value={titleInput}
+      value={title}
       size="huge"
     />
     <TagsInput
-      handleInput={handleTagsInput}
-      input={tagsInput}
+      handleTags={handleTags}
       label="タグ"
       placeholder="タグを入力（カンマを入れると自動で区切ります）"
       tags={tags}
       tagColor="teal"
     />
     <Divider />
-    <MarkdownEditor handleInput={handleBodyInput} input={bodyInput} />
+    <MarkdownEditor handleInput={handleBody} input={body} />
   </>
 );
 

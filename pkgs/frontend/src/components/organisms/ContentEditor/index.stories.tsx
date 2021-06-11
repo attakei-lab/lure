@@ -5,13 +5,12 @@ import { Props, View } from '.';
 const ViewTemplate = ({ ...args }: Props) => <View {...args} />;
 
 const defaultProps: Props = {
-  handleBodyInput: (input) => input,
-  handleTagsInput: (input) => input,
-  handleTitleInput: (input) => input,
-  bodyInput: '',
-  tagsInput: '',
+  handleBody: (input) => input,
+  handleTags: (input) => input,
+  handleTitle: (input) => input,
+  body: '',
   tags: [],
-  titleInput: '',
+  title: '',
 };
 
 export const Init = ViewTemplate.bind({});
