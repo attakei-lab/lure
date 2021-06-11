@@ -10,16 +10,14 @@ export type Props = {
   input: string;
 };
 
+const mdeOptions = {
+  sideBySideFullscreen: false,
+  spellChecker: false,
+};
+
 export const View: React.FC<Props> = ({ handleInput, input }) => (
   <>
-    <SimpleMDE
-      onChange={(input) => handleInput(input)}
-      options={{
-        sideBySideFullscreen: false,
-        spellChecker: false,
-      }}
-      value={input}
-    />
+    <SimpleMDE onChange={handleInput} options={mdeOptions} value={input} />
   </>
 );
 
