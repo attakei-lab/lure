@@ -1,5 +1,9 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
-import SimpleMDE from 'react-simplemde-editor';
+
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
+  ssr: false,
+});
 
 export type Props = {
   handleInput: (input: string) => void;
