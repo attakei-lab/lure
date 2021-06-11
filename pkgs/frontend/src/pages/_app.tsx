@@ -1,3 +1,4 @@
+import 'easymde/dist/easymde.min.css';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import React from 'react';
