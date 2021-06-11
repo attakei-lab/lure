@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import('@attakei/lure-app/src/config').AppConfig}
+ * @type {import('@attakei/lure-frontend/src/config').AppConfig}
  **/
 const publicRuntimeConfig = {
   // Settings of your Firebase project
