@@ -1,3 +1,4 @@
+import 'easymde/dist/easymde.min.css';
 import 'semantic-ui-css/semantic.min.css';
 
 export const parameters = {
