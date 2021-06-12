@@ -8,9 +8,11 @@ const defaultProps: Props = {
   handleBody: (input) => input,
   handleTags: (input) => input,
   handleTitle: (input) => input,
+  handleSubmit: async () => null,
   body: '',
   tags: [],
   title: '',
+  submitLabel: 'Submit',
 };
 
 export const Init = ViewTemplate.bind({});
