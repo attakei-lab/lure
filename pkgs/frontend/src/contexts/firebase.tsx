@@ -7,6 +7,7 @@ import React, {
   FC,
   PropsWithChildren,
 } from 'react';
+import 'firebase/firestore';
 
 export type FirebaseApp = {
   loading: boolean;
