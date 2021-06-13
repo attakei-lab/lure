@@ -17,7 +17,24 @@ export const Page: React.FC = () => {
     updated: 0,
   });
 
+  const validate = (content: Content): string | null => {
+    if (content.title === '') {
+      return 'タイトルは必須です';
+    }
+    if (content.body === '') {
+      return '本文は必須です';
+    }
+    return null;
+  };
+
   const handleSubmit = async (): Promise<SubmitResult> => {
+    const validated = validate(content);
+    if (validated) {
+      return {
+        message: validated,
+        next: async (set) => set(false),
+      };
+    }
     const now = new Date();
     console.log('Start to store for firestore');
     const docData = {
