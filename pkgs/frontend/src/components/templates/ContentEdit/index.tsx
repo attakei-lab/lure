@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import ContentEditor from '../../organisms/ContentEditor';
-import { Content, SubmitResult } from '../../../services/contents/types';
+import { Content, SubmitResult } from '../../../services/posts/types';
 import BaseLayout from '../BaseLayout';
 
 export type Props = {

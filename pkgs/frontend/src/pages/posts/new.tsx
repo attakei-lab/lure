@@ -38,7 +38,7 @@ export const Page: React.FC = () => {
     return docRef
       .set(docData)
       .then(() => {
-        console.debug(`Created content at /contents/${docRef.id}`);
+        console.debug(`Created content at /posts/${docRef.id}`);
         return {
           message: '保存しました。ページを切り替えます...',
           next: async () => {

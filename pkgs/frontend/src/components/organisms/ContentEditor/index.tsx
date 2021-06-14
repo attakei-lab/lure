@@ -46,7 +46,7 @@ export const View: React.FC<Props> = ({
         fluid
         label="タイトル"
         onChange={(e) => {
-          setMessage({});
+          setMessage(undefined);
           handleTitle(e.target.value);
         }}
         placeholder="タイトルを入力"
@@ -55,7 +55,7 @@ export const View: React.FC<Props> = ({
       />
       <TagsInput
         handleTags={(input) => {
-          setMessage({});
+          setMessage(undefined);
           handleTags(input);
         }}
         label="タグ"
@@ -66,7 +66,7 @@ export const View: React.FC<Props> = ({
       <Divider />
       <MarkdownEditor
         handleInput={(input) => {
-          setMessage({});
+          setMessage(undefined);
           handleBody(input);
         }}
         input={body}
