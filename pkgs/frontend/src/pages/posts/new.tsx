@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import Template from '../../components/templates/ContentEdit';
 import { FirebaseAppContext } from '../../contexts/firebase';
-import { Content, SubmitResult } from '../../services/contents/types';
-import { simpleValidate } from '../../services/contents/utils';
+import { Post, SubmitResult } from '../../services/posts/types';
+import { simpleValidate } from '../../services/posts/utils';
 
 export const Page: React.FC = () => {
-  const { app, user } = useContext(FirebaseAppContext);
+  const { app, profileRef } = useContext(FirebaseAppContext);
   const router = useRouter();
-  const [content, setContent] = useState<Content>({
-    authorId: user.uid,
+  const [content, setContent] = useState<Post>({
+    authorRef: profileRef,
     body: '',
     tags: [],
     title: '',
@@ -30,10 +30,11 @@ export const Page: React.FC = () => {
     console.log('Start to store for firestore');
     const docData = {
       ...content,
+      authorRef: profileRef,
       created: now.getTime(),
       updated: now.getTime(),
     };
-    const docRef = app.firestore().collection('contents').doc();
+    const docRef = app.firestore().collection('posts').doc();
     return docRef
       .set(docData)
       .then(() => {

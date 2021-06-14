@@ -1,10 +1,7 @@
+import { DocumentReference } from '@firebase/firestore-types';
 import { SemanticCOLORS } from 'semantic-ui-react';
 
-/**
- * 記事情報
- */
 export type Content = {
-  authorId: string;
   title: string;
   body: string;
   tags: string[];
@@ -12,9 +9,12 @@ export type Content = {
   updated: number;
 };
 
-export type ContentWithId = Content & {
-  id: string;
-};
+/**
+ * ユーザー記事情報
+ */
+export type Post = {
+  authorRef: DocumentReference;
+} & Content;
 
 export type SubmitResult = {
   color?: SemanticCOLORS;
