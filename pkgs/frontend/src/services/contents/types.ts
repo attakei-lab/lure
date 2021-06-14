@@ -1,4 +1,3 @@
-import React from 'react';
 import { SemanticCOLORS } from 'semantic-ui-react';
 
 /**
@@ -20,7 +19,5 @@ export type ContentWithId = Content & {
 export type SubmitResult = {
   color?: SemanticCOLORS;
   message?: string;
-  next?: (
-    setDisabled: React.Dispatch<React.SetStateAction<boolean>>
-  ) => Promise<void>;
+  next?: () => boolean | Promise<boolean>;
 };

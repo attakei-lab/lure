@@ -31,12 +31,13 @@ export const View: React.FC<Props> = ({
   const doSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setDisabled(true);
+    setMessage({});
     const result = await handleSubmit();
     setMessage({
       color: result.color,
       text: result.message,
     });
-    result.next && result.next(setDisabled);
+    result.next && setDisabled(await result.next());
   };
 
   return (
@@ -44,20 +45,32 @@ export const View: React.FC<Props> = ({
       <Form.Input
         fluid
         label="タイトル"
-        onChange={(e) => handleTitle(e.target.value)}
+        onChange={(e) => {
+          setMessage({});
+          handleTitle(e.target.value);
+        }}
         placeholder="タイトルを入力"
         value={title}
         size="huge"
       />
       <TagsInput
-        handleTags={handleTags}
+        handleTags={(input) => {
+          setMessage({});
+          handleTags(input);
+        }}
         label="タグ"
         placeholder="タグを入力（カンマを入れると自動で区切ります）"
         tags={tags}
         tagColor="teal"
       />
       <Divider />
-      <MarkdownEditor handleInput={handleBody} input={body} />
+      <MarkdownEditor
+        handleInput={(input) => {
+          setMessage({});
+          handleBody(input);
+        }}
+        input={body}
+      />
       <Divider />
       <Container textAlign="right">
         <ContentSubmit

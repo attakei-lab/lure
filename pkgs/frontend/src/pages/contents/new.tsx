@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import Template from '../../components/templates/ContentEdit';
 import { FirebaseAppContext } from '../../contexts/firebase';
 import { Content, SubmitResult } from '../../services/contents/types';
+import { simpleValidate } from '../../services/contents/utils';
 
 export const Page: React.FC = () => {
   const { app, user } = useContext(FirebaseAppContext);
@@ -17,22 +18,12 @@ export const Page: React.FC = () => {
     updated: 0,
   });
 
-  const validate = (content: Content): string | null => {
-    if (content.title === '') {
-      return 'タイトルは必須です';
-    }
-    if (content.body === '') {
-      return '本文は必須です';
-    }
-    return null;
-  };
-
   const handleSubmit = async (): Promise<SubmitResult> => {
-    const validated = validate(content);
-    if (validated) {
+    const validateMsg = simpleValidate(content);
+    if (validateMsg) {
       return {
-        message: validated,
-        next: async (set) => set(false),
+        message: validateMsg,
+        next: () => false,
       };
     }
     const now = new Date();
@@ -51,13 +42,14 @@ export const Page: React.FC = () => {
           message: '保存しました。ページを切り替えます...',
           next: async () => {
             setTimeout(() => router.push('/'), 1000);
+            return true;
           },
         };
       })
       .catch((reason) => {
         return {
           message: `失敗しました: ${reason}`,
-          next: async (set) => set(false),
+          next: () => false,
         };
       });
   };
