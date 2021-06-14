@@ -38,11 +38,12 @@ export const Page: React.FC = () => {
     return docRef
       .set(docData)
       .then(() => {
-        console.debug(`Created content at /posts/${docRef.id}`);
+        const nextUrl = `/posts/${docRef.id}`;
+        console.debug(`Created content at ${nextUrl}`);
         return {
           message: '保存しました。ページを切り替えます...',
           next: async () => {
-            setTimeout(() => router.push('/'), 1000);
+            setTimeout(() => router.push(nextUrl), 1000);
             return true;
           },
         };
