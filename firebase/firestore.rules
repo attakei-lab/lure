@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 全体アクセスの統制用
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    match /users/{uid} {
+      // ユーザー情報は全体公開だが、編集は本人のみ可能
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
+
