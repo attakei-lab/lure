@@ -5,8 +5,8 @@ export type Content = {
   title: string;
   body: string;
   tags: string[];
-  created: number;
-  updated: number;
+  created: Date;
+  updated: Date;
 };
 
 /**

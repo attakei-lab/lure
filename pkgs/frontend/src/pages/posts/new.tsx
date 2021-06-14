@@ -14,8 +14,8 @@ export const Page: React.FC = () => {
     body: '',
     tags: [],
     title: '',
-    created: 0,
-    updated: 0,
+    created: undefined,
+    updated: undefined,
   });
 
   const handleSubmit = async (): Promise<SubmitResult> => {
@@ -31,8 +31,8 @@ export const Page: React.FC = () => {
     const docData = {
       ...content,
       authorRef: profileRef,
-      created: now.getTime(),
-      updated: now.getTime(),
+      created: now,
+      updated: now,
     };
     const docRef = app.firestore().collection('posts').doc();
     return docRef
