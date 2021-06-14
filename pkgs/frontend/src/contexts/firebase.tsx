@@ -58,11 +58,14 @@ export const FirebaseAppProvider: FC<
     console.debug('Initialize application');
     app.auth().onAuthStateChanged(async (user) => {
       setLoading(false);
-      if (!user) setUser(null);
+      setUser(user);
+      if (!user) {
+        return;
+      }
       const [profileData, profileRef] = await configureUserProfile(app, user);
       setProfile(profileData);
       setProfileRef(profileRef);
-      console.debug(`Log in as "${profile.name}"`);
+      console.debug(`Log in as "${profileData.name}"`);
     });
   }, [app]);
 

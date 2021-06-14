@@ -37,7 +37,7 @@ const App: (appProps: AppProps) => React.ReactElement = ({
                   <LoadingTemplate />
                 ) : ctx.error ? (
                   <ErrorTemplate error={ctx.error} />
-                ) : !ctx.user &&
+                ) : !ctx.profile &&
                   !isPublicPage(router.pathname, appOptions.publicPages) ? (
                   <LoginTemplate next={router.pathname} />
                 ) : (

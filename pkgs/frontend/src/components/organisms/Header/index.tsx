@@ -5,7 +5,7 @@ import { FirebaseAppContext } from '../../../contexts/firebase';
 
 export const ContainerComponent = () => {
   const { appOptions } = useConfig();
-  const { user } = useContext(FirebaseAppContext);
+  const { profile } = useContext(FirebaseAppContext);
   return (
     <header>
       <Menu inverted fixed="top" color={appOptions.color}>
@@ -16,7 +16,7 @@ export const ContainerComponent = () => {
           </Menu.Item>
         </Container>
         <Menu.Item>
-          <p>{user ? `Logged in as ${user.displayName}` : 'Need to log in'}</p>
+          <p>{profile ? `Logged in as ${profile.name}` : 'Need to log in'}</p>
         </Menu.Item>
       </Menu>
     </header>
