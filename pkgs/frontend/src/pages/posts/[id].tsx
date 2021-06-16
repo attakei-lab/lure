@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import Template from '../../components/templates/SimpleContent';
 import { FirebaseAppContext } from '../../contexts/firebase';
-import { Post } from '../../services/posts/types';
+import { Post } from '../../applications/posts/types';
 
 export const Page = () => {
   const router = useRouter();

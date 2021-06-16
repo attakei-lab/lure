@@ -1,6 +1,9 @@
 import { DocumentReference } from '@firebase/firestore-types';
 import { SemanticCOLORS } from 'semantic-ui-react';
 
+/**
+ * 記事データとしての実体
+ */
 export type Content = {
   title: string;
   body: string;

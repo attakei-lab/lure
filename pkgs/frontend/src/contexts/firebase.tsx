@@ -9,16 +9,15 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import 'firebase/firestore';
-import { configureUserProfile } from '../services/auth/commands';
-import { UserProfile } from '../services/auth/types';
+import { configureUserProfile } from '../applications/auth/commands';
+import { UserProfileEntity } from '../applications/auth/types';
 
 export type FirebaseApp = {
   loading: boolean;
   error: Error | null;
   app: firebase.app.App | null;
   user: firebase.User | null;
-  profile: UserProfile | null;
-  profileRef: DocumentReference | null;
+  profile: UserProfileEntity | null;
 };
 
 export const FirebaseAppContext = createContext<FirebaseApp>({
@@ -27,7 +26,6 @@ export const FirebaseAppContext = createContext<FirebaseApp>({
   app: null,
   user: null,
   profile: null,
-  profileRef: null,
 });
 
 // TODO: Fix type
@@ -38,8 +36,7 @@ export const FirebaseAppProvider: FC<
   const [error, setError] = useState<Error>(null);
   const [app, setApp] = useState<firebase.app.App>(null);
   const [user, setUser] = useState<firebase.User>(null);
-  const [profile, setProfile] = useState<UserProfile>(null);
-  const [profileRef, setProfileRef] = useState<DocumentReference>(null);
+  const [profile, setProfile] = useState<UserProfileEntity>(null);
 
   useEffect(() => {
     try {
@@ -62,17 +59,14 @@ export const FirebaseAppProvider: FC<
       if (!user) {
         return;
       }
-      const [profileData, profileRef] = await configureUserProfile(app, user);
-      setProfile(profileData);
-      setProfileRef(profileRef);
-      console.debug(`Log in as "${profileData.name}"`);
+      const profile = await configureUserProfile(app, user);
+      setProfile(profile);
+      console.debug(`Log in as "${profile.name}"`);
     });
   }, [app]);
 
   return (
-    <FirebaseAppContext.Provider
-      value={{ loading, error, app, user, profile, profileRef }}
-    >
+    <FirebaseAppContext.Provider value={{ loading, error, app, user, profile }}>
       {children}
     </FirebaseAppContext.Provider>
   );

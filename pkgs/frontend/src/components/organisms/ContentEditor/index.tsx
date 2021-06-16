@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Divider, Form } from 'semantic-ui-react';
-import { SubmitResult } from '../../../services/posts/types';
+import { SubmitResult } from '../../../applications/posts/types';
 import ContentSubmit, { Message } from '../../molecules/ContentSubmit';
 import MarkdownEditor from '../../molecules/MarkdownEditor';
 import TagsInput from '../../molecules/TagsInput';

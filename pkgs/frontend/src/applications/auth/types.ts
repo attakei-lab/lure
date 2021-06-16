@@ -1,3 +1,5 @@
+import { Entity } from '../types';
+
 /**
  * データストア上に管理するユーザー情報
  *
@@ -7,7 +9,10 @@
 export type UserProfile = {
   /** アイコンなどに使う画像URL */
   avatarUrl: string;
-  created: Date;
   /** 表示用の名前 */
   name: string;
+  /** プロフィール作成日時 */
+  created: Date;
 };
+
+export type UserProfileEntity = Entity<UserProfile>;
