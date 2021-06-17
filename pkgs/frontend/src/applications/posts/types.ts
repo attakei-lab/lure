@@ -1,6 +1,6 @@
 import { DocumentReference } from '@firebase/firestore-types';
 import { SemanticCOLORS } from 'semantic-ui-react';
-import { UserProfile, UserProfileEntity } from '../auth/types';
+import { UserProfileEntity } from '../auth/types';
 import { Entity } from '../types';
 
 /**

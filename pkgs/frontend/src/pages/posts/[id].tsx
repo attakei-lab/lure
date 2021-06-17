@@ -1,14 +1,16 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import Template from '../../components/templates/SimpleContent';
+import Template from '../../components/templates/Post';
 import { FirebaseAppContext } from '../../contexts/firebase';
-import { Post } from '../../applications/posts/types';
+import { postFirebaseConverter } from '../../applications/posts/services';
+import { PostEntity } from '../../applications/posts/types';
+import { userProfileConverter } from '../../applications/auth/services';
 
 export const Page = () => {
   const router = useRouter();
-  const { app } = useContext(FirebaseAppContext);
-  const [post, setPost] = useState<Post>(null);
+  const { app, profile } = useContext(FirebaseAppContext);
+  const [post, setPost] = useState<PostEntity>(null);
 
   useEffect(() => {
     const postId = router.query.id || null;
@@ -17,12 +19,17 @@ export const Page = () => {
       return;
     }
     (async () => {
-      const snap = await app.firestore().doc(`posts/${postId}`).get();
+      const snap = await app
+        .firestore()
+        .doc(`posts/${postId}`)
+        .withConverter(postFirebaseConverter)
+        .get();
       if (!snap.exists) {
         console.log('Not found');
         return;
       }
-      setPost(snap.data() as Post);
+      const post = await snap.data();
+      setPost(post);
     })();
   }, []);
 
@@ -33,7 +40,7 @@ export const Page = () => {
           <Head>
             <title>{post.title} | Lure</title>
           </Head>
-          <Template content={post} />
+          <Template post={post} user={profile} />
         </>
       )}
     </>
