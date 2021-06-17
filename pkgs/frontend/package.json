@@ -12,6 +12,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "date-fns": "^2.22.1",
     "easymde": "^2.15.0",
     "firebase": "^8.6.3",
     "firebaseui": "^4.8.0",
