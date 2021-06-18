@@ -1,21 +1,23 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import Template from '../../components/templates/Post';
+import ErrorTemplate from '../../components/templates/Error';
+import LoadingTemplate from '../../components/templates/Loading';
+import ViewTemplate from '../../components/templates/Post';
 import { FirebaseAppContext } from '../../contexts/firebase';
 import { postFirebaseConverter } from '../../applications/posts/services';
 import { PostEntity } from '../../applications/posts/types';
-import { userProfileConverter } from '../../applications/auth/services';
 
 export const Page = () => {
   const router = useRouter();
   const { app, profile } = useContext(FirebaseAppContext);
   const [post, setPost] = useState<PostEntity>(null);
+  const [error, setError] = useState<Error>(null);
 
   useEffect(() => {
     const postId = router.query.id || null;
     if (postId === null) {
-      console.error('Not found');
+      setError(new Error('Invalid URL'));
       return;
     }
     (async () => {
@@ -25,6 +27,7 @@ export const Page = () => {
         .withConverter(postFirebaseConverter)
         .get();
       if (!snap.exists) {
+        setError(new Error('Not found'));
         console.log('Not found');
         return;
       }
@@ -35,13 +38,17 @@ export const Page = () => {
 
   return (
     <>
-      {post && (
+      {error ? (
+        <ErrorTemplate error={error} />
+      ) : post ? (
         <>
           <Head>
             <title>{post.title} | Lure</title>
           </Head>
-          <Template post={post} user={profile} />
+          <ViewTemplate post={post} user={profile} />
         </>
+      ) : (
+        <LoadingTemplate />
       )}
     </>
   );

@@ -17,8 +17,9 @@ export const View: React.FC<Props> = ({ post, user }) => {
     <>
       <Container>
         <Header as="h1">{post.title}</Header>
-        <Grid dvided={true}>
+        <Grid>
           <Grid.Column width={12} role="article">
+            <Divider hidden />
             <ContentBody source={post.body} />
           </Grid.Column>
           <Grid.Column width={4}>
