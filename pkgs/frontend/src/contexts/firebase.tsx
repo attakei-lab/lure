@@ -1,5 +1,4 @@
 import { FirebaseOptions } from '@firebase/app-types';
-import { DocumentReference } from '@firebase/firestore-types';
 import firebase from 'firebase';
 import React, {
   createContext,
