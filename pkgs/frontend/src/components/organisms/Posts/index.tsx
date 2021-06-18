@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import { PostEntity } from '../../../applications/posts/types';
-import PostRecord from '../../molecules/PostRecord';
+import { PostEntity } from '@/applications/posts/types';
+import PostRecord from '@/components/molecules/PostRecord';
 
 export type Props = {
   posts: PostEntity[];

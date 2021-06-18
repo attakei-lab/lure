@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from '../../organisms/Login';
-import BaseLayout from '../BaseLayout';
+import Login from '@/components/organisms/Login';
+import BaseLayout from '@/components/templates/BaseLayout';
 
 export type Props = {
   headingText?: string;

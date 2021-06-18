@@ -1,4 +1,4 @@
-import { Entity } from '../types';
+import { Entity } from '@/applications/types';
 
 /**
  * データストア上に管理するユーザー情報

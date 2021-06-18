@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from '../components/organisms/Login';
-import BaseLayout from '../components/templates/BaseLayout';
+import Login from '@/components/organisms/Login';
+import BaseLayout from '@/components/templates/BaseLayout';
 import { Container } from 'semantic-ui-react';
 
 export const Page = () => {

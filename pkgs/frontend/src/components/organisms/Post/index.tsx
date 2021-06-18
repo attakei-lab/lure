@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container, Divider, Grid, Header } from 'semantic-ui-react';
-import { UserProfileEntity } from '../../../applications/auth/types';
-import { PostEntity } from '../../../applications/posts/types';
-import ContentBody from '../../atoms/ContentBody';
-import ContentCommands from '../../molecules/ContentCommands';
-import ContentHistory from '../../molecules/ContentHistory';
-import ContentTags from '../../molecules/ContentTags';
+import { UserProfileEntity } from '@/applications/auth/types';
+import { PostEntity } from '@/applications/posts/types';
+import ContentBody from '@/components/atoms/ContentBody';
+import ContentCommands from '@/components/molecules/ContentCommands';
+import ContentHistory from '@/components/molecules/ContentHistory';
+import ContentTags from '@/components/molecules/ContentTags';
 
 export type Props = {
   post: PostEntity;

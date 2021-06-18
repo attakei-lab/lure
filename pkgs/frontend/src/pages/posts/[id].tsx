@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import ErrorTemplate from '../../components/templates/Error';
-import LoadingTemplate from '../../components/templates/Loading';
-import ViewTemplate from '../../components/templates/Post';
-import { FirebaseAppContext } from '../../contexts/firebase';
-import { fetchPost } from '../../applications/posts/queries';
-import { PostEntity } from '../../applications/posts/types';
+import ErrorTemplate from '@/components/templates/Error';
+import LoadingTemplate from '@/components/templates/Loading';
+import ViewTemplate from '@/components/templates/Post';
+import { FirebaseAppContext } from '@/contexts/firebase';
+import { fetchPost } from '@/applications/posts/queries';
+import { PostEntity } from '@/applications/posts/types';
 
 export const Page = () => {
   const router = useRouter();

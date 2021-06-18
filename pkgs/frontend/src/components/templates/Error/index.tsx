@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import BaseLayout from '../BaseLayout';
+import BaseLayout from '@/components/templates/BaseLayout';
 
 type Props = {
   error: Error;

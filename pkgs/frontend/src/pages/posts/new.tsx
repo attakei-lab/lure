@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
-import Template from '../../components/templates/ContentEdit';
-import { FirebaseAppContext } from '../../contexts/firebase';
-import { Content, SubmitResult } from '../../applications/posts/types';
-import { simpleValidate } from '../../applications/posts/utils';
+import Template from '@/components/templates/ContentEdit';
+import { FirebaseAppContext } from '@/contexts/firebase';
+import { Content, SubmitResult } from '@/applications/posts/types';
+import { simpleValidate } from '@/applications/posts/utils';
 
 export const Page: React.FC = () => {
   const { app, profile } = useContext(FirebaseAppContext);

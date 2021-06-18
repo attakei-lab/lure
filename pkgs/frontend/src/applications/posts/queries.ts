@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-import { userProfileConverter } from '../auth/services';
-import { UserProfileEntity } from '../auth/types';
+import { userProfileConverter } from '@/applications/auth/services';
+import { UserProfileEntity } from '@/applications/auth/types';
 import { postFirebaseConverter } from './services';
 import { PostEntity } from './types';
 

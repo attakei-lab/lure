@@ -1,8 +1,8 @@
 import React from 'react';
-import { UserProfileEntity } from '../../../applications/auth/types';
-import { PostEntity } from '../../../applications/posts/types';
-import Post from '../../organisms/Post';
-import BaseLayout from '../BaseLayout';
+import { UserProfileEntity } from '@/applications/auth/types';
+import { PostEntity } from '@/applications/posts/types';
+import Post from '@/components/organisms/Post';
+import BaseLayout from '@/components/templates/BaseLayout';
 
 export type Props = {
   post: PostEntity;

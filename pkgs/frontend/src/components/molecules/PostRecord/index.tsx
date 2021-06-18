@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 import { Image, List } from 'semantic-ui-react';
-import { getLinks } from '../../../applications/posts/services';
-import { PostEntity } from '../../../applications/posts/types';
+import { getLinks } from '@/applications/posts/services';
+import { PostEntity } from '@/applications/posts/types';
 
 export type Props = {
   post: PostEntity;

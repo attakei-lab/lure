@@ -1,12 +1,8 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import ContentEditor from '../../organisms/ContentEditor';
-import {
-  Content,
-  PostEntity,
-  SubmitResult,
-} from '../../../applications/posts/types';
-import BaseLayout from '../BaseLayout';
+import ContentEditor from '@/components/organisms/ContentEditor';
+import { Content, PostEntity, SubmitResult } from '@/applications/posts/types';
+import BaseLayout from '@/components/templates/BaseLayout';
 
 export type Props = {
   content: Content;

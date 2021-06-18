@@ -9,8 +9,8 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import 'firebase/firestore';
-import { configureUserProfile } from '../applications/auth/commands';
-import { UserProfileEntity } from '../applications/auth/types';
+import { configureUserProfile } from '@/applications/auth/commands';
+import { UserProfileEntity } from '@/applications/auth/types';
 
 export type FirebaseApp = {
   loading: boolean;

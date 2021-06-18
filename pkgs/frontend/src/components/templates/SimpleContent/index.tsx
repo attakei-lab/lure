@@ -1,6 +1,6 @@
 import React from 'react';
-import Content from '../../organisms/Content';
-import BaseLayout from '../BaseLayout';
+import Content from '@/components/organisms/Content';
+import BaseLayout from '@/components/templates/BaseLayout';
 
 export type Props = {
   content: {

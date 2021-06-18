@@ -1,7 +1,7 @@
 import { DocumentReference } from '@firebase/firestore-types';
 import { SemanticCOLORS } from 'semantic-ui-react';
-import { UserProfileEntity } from '../auth/types';
-import { Entity } from '../types';
+import { UserProfileEntity } from '@/applications/auth/types';
+import { Entity } from '@/applications/types';
 
 /**
  * 記事データとしての実体

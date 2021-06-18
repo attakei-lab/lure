@@ -1,6 +1,6 @@
 import getConfig from 'next/config';
 import React, { createContext, useContext, PropsWithChildren } from 'react';
-import { AppConfig, defaultOptions } from '../config';
+import { AppConfig, defaultOptions } from '@/config';
 
 export const AppConfigContext = createContext<AppConfig>({
   firebase: {},

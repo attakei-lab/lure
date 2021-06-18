@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import Footer from '../../organisms/Footer';
-import Header from '../../organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Header from '@/components/organisms/Header';
 
 export type Props = unknown;
 

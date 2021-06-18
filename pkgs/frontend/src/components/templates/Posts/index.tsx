@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import { PostEntity } from '../../../applications/posts/types';
-import Posts from '../../organisms/Posts';
-import BaseLayout from '../BaseLayout';
+import { PostEntity } from '@/applications/posts/types';
+import Posts from '@/components/organisms/Posts';
+import BaseLayout from '@/components/templates/BaseLayout';
 
 export type Props = {
   headingText: string;

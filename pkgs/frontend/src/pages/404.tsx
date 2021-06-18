@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import Template from '../components/templates/SimpleContent';
+import Template from '@/components/templates/SimpleContent';
 
 const content = {
   title: 'Not Found',

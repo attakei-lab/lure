@@ -1,13 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 import { Button, Container, Header } from 'semantic-ui-react';
-import { UserProfileEntity } from '../../../applications/auth/types';
-import {
-  canDelete,
-  canEdit,
-  getLinks,
-} from '../../../applications/posts/services';
-import { PostEntity } from '../../../applications/posts/types';
+import { UserProfileEntity } from '@/applications/auth/types';
+import { canDelete, canEdit, getLinks } from '@/applications/posts/services';
+import { PostEntity } from '@/applications/posts/types';
 
 export type Props = {
   post: PostEntity;
