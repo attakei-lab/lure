@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Divider, Form } from 'semantic-ui-react';
 import { SubmitResult } from '@/applications/posts/types';
+import MarkdownEditor from '@/components/atoms/MarkdownEditor';
 import ContentSubmit, { Message } from '@/components/molecules/ContentSubmit';
-import MarkdownEditor from '@/components/molecules/MarkdownEditor';
 import TagsInput from '@/components/molecules/TagsInput';
 
 export type Props = {

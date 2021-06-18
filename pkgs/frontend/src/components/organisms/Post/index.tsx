@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Divider, Grid, Header } from 'semantic-ui-react';
 import { UserProfileEntity } from '@/applications/auth/types';
 import { PostEntity } from '@/applications/posts/types';
-import ContentBody from '@/components/atoms/ContentBody';
+import MarkdownViewer from '@/components/atoms/MarkdownViewer';
 import ContentCommands from '@/components/molecules/ContentCommands';
 import ContentHistory from '@/components/molecules/ContentHistory';
 import ContentTags from '@/components/molecules/ContentTags';
@@ -20,7 +20,7 @@ export const View: React.FC<Props> = ({ post, user }) => {
         <Grid>
           <Grid.Column width={12} role="article">
             <Divider hidden />
-            <ContentBody source={post.body} />
+            <MarkdownViewer source={post.body} />
           </Grid.Column>
           <Grid.Column width={4}>
             <Container>

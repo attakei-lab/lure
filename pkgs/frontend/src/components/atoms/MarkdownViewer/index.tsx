@@ -4,9 +4,16 @@ import remarkFootnotes from 'remark-footnotes';
 import remarkGfm from 'remark-gfm';
 
 export type Props = {
+  /** Markdownテキストソース */
   source: string;
 };
 
+/**
+ * 受け取ったMarkdownソースを加工してレンダリングする
+ *
+ * @param Props props
+ * @todo コードブロックのサポート（要Prism.js）
+ */
 export const View: React.FC<Props> = ({ source }) => (
   <Remark remarkPlugins={[remarkGfm, [remarkFootnotes, { inlineNotes: true }]]}>
     {source}

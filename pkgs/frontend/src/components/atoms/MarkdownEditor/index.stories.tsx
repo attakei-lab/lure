@@ -13,6 +13,6 @@ export const Init = ViewTemplate.bind({});
 Init.args = defaultProps;
 
 export default {
-  title: 'molecules/MarkdownEditor',
+  title: 'atoms/MarkdownEditor',
   component: View,
 } as Meta;

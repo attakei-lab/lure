@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Divider, Header } from 'semantic-ui-react';
-import ContentBody from '@/components/atoms/ContentBody';
+import MarkdownViewer from '@/components/atoms/MarkdownViewer';
 
 export type Props = {
   body: string;
@@ -13,7 +13,7 @@ export const View: React.FC<Props> = ({ body, title }) => {
       <Header as="h1">{title}</Header>
       <Divider />
       <div role="article">
-        <ContentBody source={body} />
+        <MarkdownViewer source={body} />
       </div>
     </Container>
   );
