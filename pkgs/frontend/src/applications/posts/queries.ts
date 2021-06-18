@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { userProfileConverter } from '../auth/services';
+import { UserProfileEntity } from '../auth/types';
 import { postFirebaseConverter } from './services';
 import { PostEntity } from './types';
 
@@ -24,4 +25,36 @@ export const fetchPost = async (
     await entity.authorRef.withConverter(userProfileConverter).get()
   ).data();
   return entity;
+};
+
+/**
+ * 記事を一括で取得する
+ */
+export const fetchPosts = async (
+  app: firebase.app.App
+): Promise<PostEntity[]> => {
+  const ref = app
+    .firestore()
+    .collection(`posts`)
+    .withConverter(postFirebaseConverter);
+  const snapshot = await ref.get();
+  const entities = snapshot.docs.map((snap) => snap.data());
+  const authors = new Map<string, UserProfileEntity>();
+  await Promise.all(
+    entities.map(async (entity) => {
+      if (authors.has(entity.authorRef.id)) {
+        return;
+      }
+      authors.set(
+        entity.authorRef.id,
+        (
+          await entity.authorRef.withConverter(userProfileConverter).get()
+        ).data()
+      );
+    })
+  );
+  return entities.map((entity) => {
+    entity.author = authors.get(entity.authorRef.id);
+    return entity;
+  });
 };
