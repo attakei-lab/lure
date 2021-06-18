@@ -5,7 +5,7 @@ import ErrorTemplate from '../../components/templates/Error';
 import LoadingTemplate from '../../components/templates/Loading';
 import ViewTemplate from '../../components/templates/Post';
 import { FirebaseAppContext } from '../../contexts/firebase';
-import { postFirebaseConverter } from '../../applications/posts/services';
+import { fetchPost } from '../../applications/posts/queries';
 import { PostEntity } from '../../applications/posts/types';
 
 export const Page = () => {
@@ -21,17 +21,13 @@ export const Page = () => {
       return;
     }
     (async () => {
-      const snap = await app
-        .firestore()
-        .doc(`posts/${postId}`)
-        .withConverter(postFirebaseConverter)
-        .get();
-      if (!snap.exists) {
+      // TODO: Guard
+      const post = await fetchPost(app, postId as string);
+      if (post === null) {
         setError(new Error('Not found'));
         console.log('Not found');
         return;
       }
-      const post = await snap.data();
       setPost(post);
     })();
   }, []);

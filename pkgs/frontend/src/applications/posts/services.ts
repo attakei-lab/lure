@@ -20,35 +20,30 @@ export const canDelete = (post: PostEntity, user: UserProfileEntity): boolean =>
 /**
  * 記事エンティティーのFirestore相互変換
  *
- * 特性として、リレーション構造にあるユーザ情報を取得するために、Promiseでラップしている
  */
-export const postFirebaseConverter: firebase.firestore.FirestoreDataConverter<
-  Promise<PostEntity>
-> = {
-  fromFirestore: async (snapshot, options) => {
-    const data = snapshot.data(options);
-    return {
-      id: snapshot.id,
-      ref: snapshot.ref,
-      title: data.title,
-      body: data.body,
-      tags: data.tags,
-      created: fromUnixTime(data.created.seconds),
-      updated: fromUnixTime(data.updated.seconds),
-      author: (
-        await data.authorRef.withConverter(userProfileConverter).get()
-      ).data(),
-    };
-  },
-  toFirestore: async (pPost) => {
-    const post = await pPost;
-    return {
-      titie: post.title,
-      body: post.body,
-      tags: post.tags,
-      created: post.created,
-      updated: post.updated,
-      authorRef: post.author.ref,
-    };
-  },
-};
+export const postFirebaseConverter: firebase.firestore.FirestoreDataConverter<PostEntity> =
+  {
+    fromFirestore: (snapshot, options) => {
+      const data = snapshot.data(options);
+      return {
+        id: snapshot.id,
+        ref: snapshot.ref,
+        title: data.title,
+        body: data.body,
+        tags: data.tags,
+        created: fromUnixTime(data.created.seconds),
+        updated: fromUnixTime(data.updated.seconds),
+        authorRef: data.authorRef,
+      };
+    },
+    toFirestore: (post) => {
+      return {
+        title: post.title,
+        body: post.body,
+        tags: post.tags,
+        created: post.created,
+        updated: post.updated,
+        authorRef: post.author.ref,
+      };
+    },
+  };

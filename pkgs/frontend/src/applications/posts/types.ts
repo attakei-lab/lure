@@ -23,7 +23,9 @@ export type Post = {
 
 export type PostEntity = Entity<
   Content & {
-    author: UserProfileEntity;
+    authorRef: DocumentReference;
+    // 著者情報
+    author?: UserProfileEntity;
   }
 >;
 

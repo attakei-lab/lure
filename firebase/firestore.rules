@@ -13,6 +13,8 @@ service cloud.firestore {
     match /posts/{id} {
       // 記事の作成は全体公開で、閲覧も自由
       allow read, create: if request.auth != null;
+      // 現時点では「記事の作者」のみ編集可能
+      allow update: if request.auth != null && request.auth.uid == get(resource.data.authorRef).id;
     }
   }
 }

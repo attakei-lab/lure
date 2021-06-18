@@ -1,14 +1,18 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import ContentEditor from '../../organisms/ContentEditor';
-import { Content, SubmitResult } from '../../../applications/posts/types';
+import {
+  Content,
+  PostEntity,
+  SubmitResult,
+} from '../../../applications/posts/types';
 import BaseLayout from '../BaseLayout';
 
 export type Props = {
   content: Content;
   handleSubmit: () => Promise<SubmitResult>;
   headingText: string;
-  setContent: (content: Content) => void;
+  setContent: (content: Content | PostEntity) => void;
   submitLabel: string;
 };
 
