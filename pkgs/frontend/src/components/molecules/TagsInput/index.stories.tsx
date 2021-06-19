@@ -1,8 +1,13 @@
 import React from 'react';
+import { Form } from 'semantic-ui-react';
 import { Meta } from '@storybook/react';
 import { Props, View } from '.';
 
-const ViewTemplate = ({ ...args }: Props) => <View {...args} />;
+const ViewTemplate = ({ ...args }: Props) => (
+  <Form>
+    <View {...args} />
+  </Form>
+);
 
 const defaultProps: Props = {
   handleTags: (tags) => tags,
