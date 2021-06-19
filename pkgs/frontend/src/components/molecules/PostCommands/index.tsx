@@ -6,10 +6,18 @@ import { canDelete, canEdit, getLinks } from '@/applications/posts/services';
 import { PostEntity } from '@/applications/posts/types';
 
 export type Props = {
+  /** 記事本体 */
   post: PostEntity;
+  /** 現在のユーザー情報 */
   user: UserProfileEntity;
 };
 
+/**
+ * 記事の操作用ボタンを表示する。
+ * 記事情報と表示ユーザーの関係性から表示内容等が変化する
+ *
+ * @param Props props
+ */
 export const View: React.FC<Props> = ({ post, user }) => (
   <Container>
     <Header as="h3" dividing>

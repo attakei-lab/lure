@@ -3,7 +3,9 @@ import React from 'react';
 import { Container, Header, List } from 'semantic-ui-react';
 
 export type Props = {
+  /** 作成日時 */
   created: Date;
+  /** 更新日時 */
   updated: Date;
 };
 
@@ -23,6 +25,11 @@ export const formatDate = (date: Date, now: Date): string => {
   return formatISO(date);
 };
 
+/**
+ * ヘッダーと併せて、更新履歴情報を表示させる
+ *
+ * @param Props props
+ */
 export const View: React.FC<Props> = ({ created, updated }) => {
   const now = new Date();
   return (

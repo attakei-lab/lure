@@ -8,6 +8,7 @@ const defaultProps: Props = {
   post: {
     id: 'mocked-id',
     ref: null,
+    authorRef: null,
     author: {
       id: 'my-user',
       ref: null,
@@ -40,6 +41,6 @@ CanDelete.args = {
 };
 
 export default {
-  title: 'molecules/ContentCommands',
+  title: 'molecules/PostCommands',
   component: View,
 } as Meta;

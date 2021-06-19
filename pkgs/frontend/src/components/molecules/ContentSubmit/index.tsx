@@ -7,13 +7,24 @@ export type Message = {
 };
 
 export type Props = {
+  /** 処理ボタンの色 */
   buttonColor?: SemanticCOLORS;
+  /** 処理ボタン内のテキスト */
   buttonLabel: string;
+  /** ボタンの押下コントロール */
   formDisabled?: boolean;
+  /** 処理開始後の実処理 */
   handleSubmit: (e: React.FormEvent) => Promise<void>;
+  /** 処理内容に応じて表示するメッセージ */
   message?: Message;
 };
 
+/**
+ * 記事の処理実行系コンポーネントを表示する
+ *
+ * @param Props props
+ * @returns
+ */
 export const View: React.FC<Props> = ({
   buttonColor,
   buttonLabel,
@@ -22,7 +33,7 @@ export const View: React.FC<Props> = ({
   message,
 }) => (
   <>
-    {message && (
+    {message && message.text && (
       <Label basic color={message.color || 'red'} pointing="right">
         {message.text}
       </Label>

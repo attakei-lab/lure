@@ -3,7 +3,7 @@ import { Container, Divider, Grid, Header } from 'semantic-ui-react';
 import { UserProfileEntity } from '@/applications/auth/types';
 import { PostEntity } from '@/applications/posts/types';
 import MarkdownViewer from '@/components/atoms/MarkdownViewer';
-import ContentCommands from '@/components/molecules/ContentCommands';
+import PostCommands from '@/components/molecules/PostCommands';
 import ContentHistory from '@/components/molecules/ContentHistory';
 import ContentTags from '@/components/molecules/ContentTags';
 
@@ -24,7 +24,7 @@ export const View: React.FC<Props> = ({ post, user }) => {
           </Grid.Column>
           <Grid.Column width={4}>
             <Container>
-              <ContentCommands post={post} user={user} />
+              <PostCommands post={post} user={user} />
               <Divider hidden />
               <ContentTags tags={post.tags} />
               <Divider hidden />
