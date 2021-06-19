@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import { PostEntity } from '@/applications/posts/types';
-import Posts from '@/components/organisms/Posts';
+import PostDescriptionList from '@/components/organisms/PostDescriptionList';
 import BaseLayout from '@/components/templates/BaseLayout';
 
 export type Props = {
@@ -15,7 +15,7 @@ export const View: React.FC<Props> = ({ headingText, posts }) => {
       <main>
         <Container>
           <Header as="h1">{headingText}</Header>
-          <Posts posts={posts} />
+          <PostDescriptionList posts={posts} />
         </Container>
       </main>
     </BaseLayout>
