@@ -22,6 +22,7 @@ describe('Header:', () => {
         error: null,
         app: null,
         user: null,
+        profile: null,
       });
     });
     describe('初期状態', () => {
@@ -39,6 +40,7 @@ describe('Header:', () => {
         error: new Error('an error'),
         app: null,
         user: null,
+        profile: null,
       });
     });
     describe('初期状態', () => {
@@ -56,6 +58,7 @@ describe('Header:', () => {
         error: null,
         app: null,
         user: null,
+        profile: null,
       });
     });
     describe('初期状態', () => {
@@ -75,12 +78,21 @@ describe('Header:', () => {
     const user = {
       displayName: 'test user',
     };
+    const profile = {
+      id: 'test',
+      ref: null,
+      email: 'test-user@example.com',
+      name: 'Test user',
+      avatarUrl: '',
+      created: new Date(),
+    };
     beforeEach(() => {
       renderResult = renderComponent({
         loading: false,
         error: null,
         app: null,
         user: user as firebase.User,
+        profile,
       });
     });
     describe('初期状態', () => {

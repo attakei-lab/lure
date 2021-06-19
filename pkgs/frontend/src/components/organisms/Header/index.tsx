@@ -3,7 +3,10 @@ import { Container, Menu } from 'semantic-ui-react';
 import { useConfig } from '@/contexts/config';
 import { FirebaseAppContext } from '@/contexts/firebase';
 
-export const ContainerComponent = () => {
+/**
+ * ページ全体のヘッダー部分（ナビゲーション類）を表示させる
+ */
+export const View = () => {
   const { appOptions } = useConfig();
   const { profile } = useContext(FirebaseAppContext);
   return (
@@ -23,4 +26,4 @@ export const ContainerComponent = () => {
   );
 };
 
-export default ContainerComponent;
+export default View;

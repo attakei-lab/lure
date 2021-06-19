@@ -1,7 +1,10 @@
 import React from 'react';
 import { Container, Segment } from 'semantic-ui-react';
 
-export const ContainerComponent = () => (
+/**
+ * ページ全体のフッターを表示させる
+ */
+export const View = () => (
   <footer>
     {/* TODO: use other styling */}
     <Segment
@@ -17,4 +20,4 @@ export const ContainerComponent = () => (
   </footer>
 );
 
-export default ContainerComponent;
+export default View;
