@@ -10,20 +10,19 @@ export type Content = {
   title: string;
   body: string;
   tags: string[];
-  created: Date;
-  updated: Date;
 };
 
 /**
  * ユーザー記事情報
  */
 export type Post = {
+  created: Date;
+  updated: Date;
   authorRef: DocumentReference;
 } & Content;
 
 export type PostEntity = Entity<
-  Content & {
-    authorRef: DocumentReference;
+  Post & {
     // 著者情報
     author?: UserProfileEntity;
   }

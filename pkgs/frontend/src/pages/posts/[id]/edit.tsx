@@ -1,52 +1,60 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import ErrorTemplate from '@/components/templates/Error';
-import LoadingTemplate from '@/components/templates/Loading';
+import { Wrapper as ErrorWrapper } from '@/components/templates/Error';
+import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
 import ViewTemplate from '@/components/templates/ContentEdit';
 import { FirebaseAppContext } from '@/contexts/firebase';
-import { fetchPost } from '@/applications/posts/queries';
+import { usePost } from '@/applications/posts/hooks';
 import { getLinks, postFirebaseConverter } from '@/applications/posts/services';
 import { simpleValidate } from '@/applications/posts/utils';
-import { PostEntity } from '@/applications/posts/types';
+import { Content } from '@/applications/posts/types';
 
+/**
+ * 既存の記事データの更新フォームを表示する
+ *
+ * フォーム内の保存処理によって、保存を実際に行い、問題なく保存されたら記事表示ページへ切り替える
+ */
 export const Page = () => {
   const router = useRouter();
   const { app } = useContext(FirebaseAppContext);
-  const [post, setPost] = useState<PostEntity>(null);
-  const [error, setError] = useState<Error>(null);
-
-  useEffect(() => {
-    const postId = router.query.id || null;
-    if (postId === null) {
-      setError(new Error('Invalid URL'));
-      return;
+  const [content, setContent] = useState<Content>();
+  const { post, error, loading } = (() => {
+    if (router.query.id && typeof router.query.id === 'string') {
+      return usePost(app, router.query.id as string);
     }
-    (async () => {
-      const post = await fetchPost(app, postId as string);
-      if (post === null) {
-        setError(new Error('Not found'));
-        console.log('Not found');
-        return;
-      }
-      setPost(post);
-    })();
-  }, []);
+    return {
+      loading: false,
+      error: new Error('Invalid URL'),
+      post: undefined,
+    };
+  })();
+  useEffect(() => {
+    if (!post) return;
+    setContent({
+      title: post.title,
+      body: post.body,
+      tags: post.tags,
+    });
+  }, [post]);
 
   const handleSubmit = async () => {
-    const validateMsg = simpleValidate(post);
+    const validateMsg = simpleValidate(content);
     if (validateMsg) {
       return {
         message: validateMsg,
         next: () => false,
       };
     }
-    post.updated = new Date();
-    return post.ref
+    const nextPost = {
+      ...post,
+      ...content,
+      update: new Date(),
+    };
+    return nextPost.ref
       .withConverter(postFirebaseConverter)
-      .set(post)
+      .set(nextPost)
       .then(() => {
-        const nextUrl = getLinks(post).detail;
+        const nextUrl = getLinks(nextPost).detail;
         console.debug(`Created content at ${nextUrl}`);
         return {
           message: '保存しました。ページを切り替えます...',
@@ -65,26 +73,19 @@ export const Page = () => {
   };
 
   return (
-    <>
-      {error ? (
-        <ErrorTemplate error={error} />
-      ) : post ? (
-        <>
-          <Head>
-            <title>編集 | Lure</title>
-          </Head>
+    <LoadingWrapper loading={loading}>
+      <ErrorWrapper error={error}>
+        {post && (
           <ViewTemplate
-            content={post}
+            content={content}
             handleSubmit={handleSubmit}
-            headingText="Edit content"
-            setContent={setPost}
+            headingText="記事の編集"
+            setContent={setContent}
             submitLabel="保存"
           />
-        </>
-      ) : (
-        <LoadingTemplate />
-      )}
-    </>
+        )}
+      </ErrorWrapper>
+    </LoadingWrapper>
   );
 };
 
