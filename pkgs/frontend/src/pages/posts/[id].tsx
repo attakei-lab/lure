@@ -1,52 +1,38 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
-import ErrorTemplate from '@/components/templates/Error';
-import LoadingTemplate from '@/components/templates/Loading';
+import React, { useContext } from 'react';
+import { Wrapper as ErrorWrapper } from '@/components/templates/Error';
+import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
 import ViewTemplate from '@/components/templates/Post';
 import { FirebaseAppContext } from '@/contexts/firebase';
-import { fetchPost } from '@/applications/posts/queries';
-import { PostEntity } from '@/applications/posts/types';
+import { usePost } from '@/applications/posts/hooks';
 
+/**
+ * URLとして指定された記事情報を取得して表示する
+ *
+ * - 取得処理中はローディング画面を表示する
+ * - 「指定IDの記事がない」などの場合は、取得処理集合にエラー用画面を表示する
+ * - 正しく取得できた場合は、記事データをTempplateに従って表示する
+ */
 export const Page = () => {
   const router = useRouter();
   const { app, profile } = useContext(FirebaseAppContext);
-  const [post, setPost] = useState<PostEntity>(null);
-  const [error, setError] = useState<Error>(null);
-
-  useEffect(() => {
-    const postId = router.query.id || null;
-    if (postId === null) {
-      setError(new Error('Invalid URL'));
-      return;
+  const { post, error, loading } = (() => {
+    if (router.query.id && typeof router.query.id === 'string') {
+      return usePost(app, router.query.id as string);
     }
-    (async () => {
-      // TODO: Guard
-      const post = await fetchPost(app, postId as string);
-      if (post === null) {
-        setError(new Error('Not found'));
-        console.log('Not found');
-        return;
-      }
-      setPost(post);
-    })();
-  }, []);
+    return {
+      loading: false,
+      error: new Error('Invalid URL'),
+      post: undefined,
+    };
+  })();
 
   return (
-    <>
-      {error ? (
-        <ErrorTemplate error={error} />
-      ) : post ? (
-        <>
-          <Head>
-            <title>{post.title} | Lure</title>
-          </Head>
-          <ViewTemplate post={post} user={profile} />
-        </>
-      ) : (
-        <LoadingTemplate />
-      )}
-    </>
+    <LoadingWrapper loading={loading}>
+      <ErrorWrapper error={error}>
+        {post && <ViewTemplate post={post} user={profile} />}
+      </ErrorWrapper>
+    </LoadingWrapper>
   );
 };
 
