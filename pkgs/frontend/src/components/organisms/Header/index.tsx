@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useContext } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
 import { useConfig } from '@/contexts/config';
@@ -13,10 +14,19 @@ export const View = () => {
     <header>
       <Menu inverted fixed="top" color={appOptions.color}>
         <Container fluid>
-          {/* TODO: use other styling */}
-          <Menu.Item header style={{ fontWeight: 700, fontSize: '1.5rem' }}>
-            Lure
-          </Menu.Item>
+          <Link href="/" passHref>
+            {/* TODO: use other styling */}
+            <Menu.Item header style={{ fontWeight: 700, fontSize: '1.5rem' }}>
+              Lure
+            </Menu.Item>
+          </Link>
+          {profile && (
+            <Link href="/posts" passHref>
+              <Menu.Item>
+                <p>記事一覧</p>
+              </Menu.Item>
+            </Link>
+          )}
         </Container>
         <Menu.Item>
           <p>{profile ? `Logged in as ${profile.name}` : 'Need to log in'}</p>
