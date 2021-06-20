@@ -7,16 +7,20 @@ export type Message = {
 };
 
 export type Props = {
-  /** 処理ボタンの色 */
-  buttonColor?: SemanticCOLORS;
-  /** 処理ボタン内のテキスト */
-  buttonLabel: string;
+  /** キャンセル用ボタンのテキスト */
+  cancelLabel?: string;
   /** ボタンの押下コントロール */
   formDisabled?: boolean;
+  /** キャンセル処理の実処理 */
+  handleCancel: (e: React.FormEvent) => Promise<void>;
   /** 処理開始後の実処理 */
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   /** 処理内容に応じて表示するメッセージ */
   message?: Message;
+  /** 処理ボタンの色 */
+  submitColor?: SemanticCOLORS;
+  /** 処理ボタン内のテキスト */
+  submitLabel: string;
 };
 
 /**
@@ -26,11 +30,13 @@ export type Props = {
  * @returns
  */
 export const View: React.FC<Props> = ({
-  buttonColor,
-  buttonLabel,
+  cancelLabel,
   formDisabled,
+  handleCancel,
   handleSubmit,
   message,
+  submitColor,
+  submitLabel,
 }) => (
   <>
     {message && message.text && (
@@ -38,13 +44,18 @@ export const View: React.FC<Props> = ({
         {message.text}
       </Label>
     )}
-    <Button
-      color={buttonColor || 'teal'}
-      onClick={handleSubmit}
-      disabled={formDisabled}
-    >
-      {buttonLabel}
-    </Button>
+    <Button.Group>
+      <Button
+        color={submitColor || 'teal'}
+        onClick={handleSubmit}
+        disabled={formDisabled}
+      >
+        {submitLabel}
+      </Button>
+      <Button color="grey" onClick={handleCancel} disabled={formDisabled}>
+        {cancelLabel || 'キャンセル'}
+      </Button>
+    </Button.Group>
   </>
 );
 

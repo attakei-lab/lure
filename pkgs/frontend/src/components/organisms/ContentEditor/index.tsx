@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Container, Divider, Form } from 'semantic-ui-react';
 import { SubmitResult } from '@/applications/posts/types';
 import MarkdownEditor from '@/components/atoms/MarkdownEditor';
-import ContentSubmit, { Message } from '@/components/molecules/ContentSubmit';
+import ContentFormController, {
+  Message,
+} from '@/components/molecules/ContentFormController';
 import TagsInput from '@/components/molecules/TagsInput';
 
 export type Props = {
@@ -26,8 +29,12 @@ export const View: React.FC<Props> = ({
   submitLabel,
   title,
 }) => {
+  const router = useRouter();
   const [disabled, setDisabled] = useState(false);
   const [message, setMessage] = useState<Message>();
+  const handleCancel = async () => {
+    router.back();
+  };
   const doSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setDisabled(true);
@@ -73,9 +80,10 @@ export const View: React.FC<Props> = ({
       />
       <Divider />
       <Container textAlign="right">
-        <ContentSubmit
-          buttonLabel={submitLabel}
+        <ContentFormController
+          submitLabel={submitLabel}
           formDisabled={disabled}
+          handleCancel={handleCancel}
           handleSubmit={doSubmit}
           message={message}
         />

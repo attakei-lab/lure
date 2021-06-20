@@ -5,11 +5,13 @@ import { Props, View } from '.';
 const ViewTemplate = ({ ...args }: Props) => <View {...args} />;
 
 const defaultProps: Props = {
-  buttonColor: 'teal',
-  buttonLabel: 'Submit',
+  cancelLabel: '戻る',
   formDisabled: false,
   handleSubmit: async () => null,
+  handleCancel: async () => null,
   message: undefined,
+  submitColor: 'teal',
+  submitLabel: 'Submit',
 };
 
 export const Default = ViewTemplate.bind({});
