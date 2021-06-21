@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import { Container, Menu } from 'semantic-ui-react';
+import { Button, Icon, Menu } from 'semantic-ui-react';
 import { useConfig } from '@/contexts/config';
 import { FirebaseAppContext } from '@/contexts/firebase';
 
@@ -13,24 +13,38 @@ export const View = () => {
   return (
     <header>
       <Menu inverted fixed="top" color={appOptions.color}>
-        <Container fluid>
-          <Link href="/" passHref>
-            {/* TODO: use other styling */}
-            <Menu.Item header style={{ fontWeight: 700, fontSize: '1.5rem' }}>
-              Lure
-            </Menu.Item>
-          </Link>
-          {profile && (
-            <Link href="/posts" passHref>
+        <Link href="/" passHref>
+          {/* TODO: use other styling */}
+          <Menu.Item header style={{ fontWeight: 700, fontSize: '1.5rem' }}>
+            Lure
+          </Menu.Item>
+        </Link>
+        <Menu.Menu position="right">
+          {profile ? (
+            <>
+              <Link href="/posts" passHref>
+                <Menu.Item>
+                  <p>記事一覧</p>
+                </Menu.Item>
+              </Link>
               <Menu.Item>
-                <p>記事一覧</p>
+                <Link href="/posts/new" passHref>
+                  <Button color="violet">
+                    <Icon name="plus" />
+                    新規作成
+                  </Button>
+                </Link>
               </Menu.Item>
-            </Link>
+              <Menu.Item>
+                <p>{`Logged in as ${profile.name}`}</p>
+              </Menu.Item>
+            </>
+          ) : (
+            <Menu.Item>
+              <p>Need to log in</p>
+            </Menu.Item>
           )}
-        </Container>
-        <Menu.Item>
-          <p>{profile ? `Logged in as ${profile.name}` : 'Need to log in'}</p>
-        </Menu.Item>
+        </Menu.Menu>
       </Menu>
     </header>
   );
