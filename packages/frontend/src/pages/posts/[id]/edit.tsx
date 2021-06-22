@@ -48,7 +48,7 @@ export const Page = () => {
     const nextPost = {
       ...post,
       ...content,
-      update: new Date(),
+      updated: new Date(),
     };
     return nextPost.ref
       .withConverter(postFirebaseConverter)
