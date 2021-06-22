@@ -4,7 +4,7 @@
     "indexes": "firebase/firestore.indexes.json"
   },
   "hosting": {
-    "public": "pkgs/frontend/out",
+    "public": "packages/frontend/out",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -16,8 +16,32 @@
         "destination": "/profile.html"
       },
       {
+        "source": "/posts/new",
+        "destination": "/posts/new.html"
+      },
+      {
+        "source": "/posts/**/edit",
+        "destination": "/posts/[id]/edit.html"
+      },
+      {
+        "source": "/posts/**",
+        "destination": "/posts/[id].html"
+      },
+      {
+        "source": "/posts",
+        "destination": "/posts.html"
+      },
+      {
+        "source": "/auth/login",
+        "destination": "/auth/login.html"
+      },
+      {
         "source": "/about",
         "destination": "/about.html"
+      },
+      {
+        "source": "/404",
+        "destination": "/404.html"
       }
     ]
   }
