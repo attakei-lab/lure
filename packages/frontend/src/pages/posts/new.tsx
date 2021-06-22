@@ -13,8 +13,6 @@ export const Page: React.FC = () => {
     body: '',
     tags: [],
     title: '',
-    created: undefined,
-    updated: undefined,
   });
 
   const handleSubmit = async (): Promise<SubmitResult> => {
