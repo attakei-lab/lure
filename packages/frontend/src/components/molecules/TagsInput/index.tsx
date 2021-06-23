@@ -30,6 +30,12 @@ export const View: React.FC<Props> = ({
   // フォーム内のvalueはコンポーネント内で管理する
   const [value, setValue] = useState('');
 
+  /** 押されたタグを削除する */
+  const deleteTag = (val: string) => {
+    handleTags(tags.filter((tag) => tag !== val));
+  };
+
+  /** 末尾の文字を判定して、タグが確定してたらインプットを更新する */
   const handleInput = (val: string) => {
     if (!val.endsWith(',')) {
       setValue(val);
@@ -52,7 +58,7 @@ export const View: React.FC<Props> = ({
         value={value}
       />
       {tags.map((tag) => (
-        <Label color={tagColor} key={tag}>
+        <Label color={tagColor} key={tag} onClick={() => deleteTag(tag)}>
           {tag}
           <Icon name="delete" />
         </Label>
