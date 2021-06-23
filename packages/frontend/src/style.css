@@ -2,3 +2,8 @@ p > code {
     background-color: #e0e0e0;
     padding: 2px;
 }
+
+div.bytemd {
+    height: calc(100vh - 400px);
+}
+  
