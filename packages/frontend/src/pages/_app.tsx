@@ -8,6 +8,7 @@ import LoadingTemplate from '@/components/templates/Loading';
 import LoginTemplate from '@/components/templates/Login';
 import { AppConfigContext, AppConfigProvider } from '@/contexts/config';
 import { FirebaseAppContext, FirebaseAppProvider } from '@/contexts/firebase';
+import '../style.css';
 
 const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
   const matchedRule = rules.findIndex((rule) => {
