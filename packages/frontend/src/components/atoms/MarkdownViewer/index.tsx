@@ -2,6 +2,8 @@ import React from 'react';
 import { Remark } from 'react-remark';
 import remarkFootnotes from 'remark-footnotes';
 import remarkGfm from 'remark-gfm';
+import remarkHighlightjs from 'remark-highlight.js';
+import 'highlight.js/styles/default.css';
 
 export type Props = {
   /** Markdownテキストソース */
@@ -15,7 +17,13 @@ export type Props = {
  * @todo コードブロックのサポート（要Prism.js）
  */
 export const View: React.FC<Props> = ({ source }) => (
-  <Remark remarkPlugins={[remarkGfm, [remarkFootnotes, { inlineNotes: true }]]}>
+  <Remark
+    remarkPlugins={[
+      remarkGfm,
+      remarkHighlightjs,
+      [remarkFootnotes, { inlineNotes: true }],
+    ]}
+  >
     {source}
   </Remark>
 );
