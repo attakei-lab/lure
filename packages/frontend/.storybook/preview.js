@@ -1,5 +1,6 @@
-import 'easymde/dist/easymde.min.css';
+import 'bytemd/dist/index.min.css';
 import 'semantic-ui-css/semantic.min.css';
+import '@/style.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

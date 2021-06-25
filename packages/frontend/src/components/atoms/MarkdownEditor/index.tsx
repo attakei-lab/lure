@@ -1,6 +1,5 @@
 import React from 'react';
 import { Editor } from '@bytemd/react';
-import 'bytemd/dist/index.min.css';
 
 export type Props = {
   /** フォーム内のソースが編集された際の処理 */

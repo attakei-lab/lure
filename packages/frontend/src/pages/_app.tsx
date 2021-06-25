@@ -1,12 +1,13 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import React from 'react';
-import 'semantic-ui-css/semantic.min.css';
 import ErrorTemplate from '@/components/templates/Error';
 import LoadingTemplate from '@/components/templates/Loading';
 import LoginTemplate from '@/components/templates/Login';
 import { AppConfigContext, AppConfigProvider } from '@/contexts/config';
 import { FirebaseAppContext, FirebaseAppProvider } from '@/contexts/firebase';
+import 'bytemd/dist/index.min.css';
+import 'semantic-ui-css/semantic.min.css';
 import '@/style.css';
 
 const isPublicPage = (path: string, rules: Array<string | RegExp>): boolean => {
