@@ -104,7 +104,7 @@ describe('Header:', () => {
       test('ユーザー名が表示されている', async () => {
         await waitFor(() => {
           expect(
-            renderResult.getByText(/Logged in as test user/)
+            renderResult.getByText(/Logged in as Test user/)
           ).toBeVisible();
         });
       });
