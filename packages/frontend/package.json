@@ -12,6 +12,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@bytemd/plugin-footnotes": "^1.9.2",
+    "@bytemd/plugin-highlight": "^1.9.2",
     "@bytemd/react": "^1.9.2",
     "bytemd": "^1.9.2",
     "date-fns": "^2.22.1",
