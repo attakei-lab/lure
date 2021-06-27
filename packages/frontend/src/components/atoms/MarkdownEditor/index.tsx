@@ -1,11 +1,5 @@
-import dynamic from 'next/dynamic';
-import React, { useMemo } from 'react';
-import { Options } from 'easymde';
-
-// SimpleMDEはサーバーサイドで動作しないため、ダイナミックインポートしている
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
-  ssr: false,
-});
+import { Editor } from '@bytemd/react';
+import React from 'react';
 
 export type Props = {
   /** フォーム内のソースが編集された際の処理 */
@@ -21,14 +15,7 @@ export type Props = {
  * @todo コードブロックのサポート（要Prism.js）
  */
 export const View: React.FC<Props> = ({ handleInput, input }) => {
-  const options = useMemo<Options>(() => {
-    return {
-      sideBySideFullscreen: false,
-      spellChecker: false,
-    };
-  }, [window]);
-
-  return <SimpleMDE onChange={handleInput} options={options} value={input} />;
+  return <Editor onChange={handleInput} value={input} />;
 };
 
 export default View;

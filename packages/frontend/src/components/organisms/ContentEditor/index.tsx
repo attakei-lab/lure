@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Divider, Form } from 'semantic-ui-react';
-import { SubmitResult } from '@/applications/posts/types';
+import { Content, SubmitResult } from '@/applications/posts/types';
 import MarkdownEditor from '@/components/atoms/MarkdownEditor';
 import ContentFormController, {
   Message,
@@ -9,29 +9,27 @@ import ContentFormController, {
 import TagsInput from '@/components/molecules/TagsInput';
 
 export type Props = {
-  handleBody: (input: string) => void;
-  handleTags: (input: string[]) => void;
-  handleTitle: (input: string) => void;
-  body: string;
-  tags: string[];
-  title: string;
+  content: Content;
+  setContent: (content: Content) => void;
   submitLabel: string;
   handleSubmit: () => Promise<SubmitResult>;
 };
 
 export const View: React.FC<Props> = ({
-  handleBody,
+  content,
+  setContent,
   handleSubmit,
-  handleTags,
-  handleTitle,
-  body,
-  tags,
   submitLabel,
-  title,
 }) => {
   const router = useRouter();
   const [disabled, setDisabled] = useState(false);
   const [message, setMessage] = useState<Message>();
+  const [body, setBody] = useState<string>(content.body);
+
+  useEffect(() => {
+    setContent({ ...content, body });
+  }, [body]);
+
   const handleCancel = async () => {
     router.back();
   };
@@ -54,27 +52,27 @@ export const View: React.FC<Props> = ({
         label="タイトル"
         onChange={(e) => {
           setMessage(undefined);
-          handleTitle(e.target.value);
+          setContent({ ...content, title: e.target.value });
         }}
         placeholder="タイトルを入力"
-        value={title}
+        value={content.title}
         size="huge"
       />
       <TagsInput
-        handleTags={(input) => {
+        handleTags={(tags) => {
           setMessage(undefined);
-          handleTags(input);
+          setContent({ ...content, tags });
         }}
         label="タグ"
         placeholder="タグを入力（カンマを入れると自動で区切ります）"
-        tags={tags}
+        tags={content.tags}
         tagColor="teal"
       />
       <Divider />
       <MarkdownEditor
         handleInput={(input) => {
           setMessage(undefined);
-          handleBody(input);
+          setBody(input);
         }}
         input={body}
       />

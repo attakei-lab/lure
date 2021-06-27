@@ -6,6 +6,7 @@ import LoadingTemplate from '@/components/templates/Loading';
 import LoginTemplate from '@/components/templates/Login';
 import { AppConfigContext, AppConfigProvider } from '@/contexts/config';
 import { FirebaseAppContext, FirebaseAppProvider } from '@/contexts/firebase';
+import 'bytemd/dist/index.min.css';
 import 'easymde/dist/easymde.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import '@/style.css';

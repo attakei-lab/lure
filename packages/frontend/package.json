@@ -12,6 +12,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@bytemd/react": "^1.9.2",
+    "bytemd": "^1.9.2",
     "date-fns": "^2.22.1",
     "easymde": "^2.15.0",
     "firebase": "^8.6.3",

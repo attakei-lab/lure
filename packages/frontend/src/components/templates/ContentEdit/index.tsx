@@ -29,13 +29,9 @@ export const View: React.FC<Props> = ({
         <main>
           <Header as="h1">{headingText}</Header>
           <ContentEditor
-            body={content.body}
-            tags={content.tags}
-            title={content.title}
-            handleBody={(body) => setContent({ ...content, body })}
+            content={content}
+            setContent={setContent}
             handleSubmit={handleSubmit}
-            handleTags={(tags) => setContent({ ...content, tags })}
-            handleTitle={(title) => setContent({ ...content, title })}
             submitLabel={submitLabel}
           />
         </main>
