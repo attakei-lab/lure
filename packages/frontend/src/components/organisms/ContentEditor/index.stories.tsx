@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { Meta } from '@storybook/react';
+import { Content } from '@/applications/posts/types';
 import { Props, View } from '.';
 
 const ViewTemplate = ({ ...args }: Props) => (
@@ -10,13 +11,13 @@ const ViewTemplate = ({ ...args }: Props) => (
 );
 
 const defaultProps: Props = {
-  handleBody: (input) => input,
-  handleTags: (input) => input,
-  handleTitle: (input) => input,
+  content: {
+    body: '',
+    title: '',
+    tags: [],
+  },
+  setContent: (content) => content,
   handleSubmit: async () => null,
-  body: '',
-  tags: [],
-  title: '',
   submitLabel: 'Submit',
 };
 
