@@ -15,7 +15,6 @@
     "@bytemd/react": "^1.9.2",
     "bytemd": "^1.9.2",
     "date-fns": "^2.22.1",
-    "easymde": "^2.15.0",
     "firebase": "^8.6.3",
     "firebaseui": "^4.8.0",
     "highlight.js": "^11.0.1",
