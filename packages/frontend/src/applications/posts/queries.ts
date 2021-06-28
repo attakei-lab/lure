@@ -5,6 +5,36 @@ import { postFirebaseConverter } from './services';
 import { PostEntity } from './types';
 
 /**
+ * 筆者情報を一括で取得して、記事情報に注入する
+ *
+ * @param entities 元の記事リスト
+ * @returns Autorを実体として保持する記事リスト
+ */
+export const bindAuthors = async (
+  entities: PostEntity[]
+): Promise<PostEntity[]> => {
+  // 最初からmapのみも考えたが、パフォーマンスを懸念して筆者情報は1人1回しか取らないようにする
+  const authors = new Map<string, UserProfileEntity>();
+  await Promise.all(
+    entities.map(async (entity) => {
+      if (authors.has(entity.authorRef.id)) {
+        return;
+      }
+      authors.set(
+        entity.authorRef.id,
+        (
+          await entity.authorRef.withConverter(userProfileConverter).get()
+        ).data()
+      );
+    })
+  );
+  return entities.map((entity) => {
+    entity.author = authors.get(entity.authorRef.id);
+    return entity;
+  });
+};
+
+/**
  * 指定したIDの記事情報を、加工済み状態で返す
  *
  */
@@ -39,22 +69,5 @@ export const fetchPosts = async (
     .withConverter(postFirebaseConverter);
   const snapshot = await ref.get();
   const entities = snapshot.docs.map((snap) => snap.data());
-  const authors = new Map<string, UserProfileEntity>();
-  await Promise.all(
-    entities.map(async (entity) => {
-      if (authors.has(entity.authorRef.id)) {
-        return;
-      }
-      authors.set(
-        entity.authorRef.id,
-        (
-          await entity.authorRef.withConverter(userProfileConverter).get()
-        ).data()
-      );
-    })
-  );
-  return entities.map((entity) => {
-    entity.author = authors.get(entity.authorRef.id);
-    return entity;
-  });
+  return bindAuthors(entities);
 };
