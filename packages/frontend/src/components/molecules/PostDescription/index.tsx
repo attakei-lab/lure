@@ -18,27 +18,27 @@ export type Props = {
 export const View: React.FC<Props> = ({ post }) => {
   const links = getLinks(post);
   return (
-    <Link href={links.detail} passHref>
-      <List.Item>
-        {post.author.avatarUrl && (
-          <Image circular size="tiny" src={post.author.avatarUrl} />
-        )}
-        <List.Content>
-          <List.Header as="h2">{post.title}</List.Header>
-          <List.Description>
-            {formatISO(post.updated)}
-            {` | `}
-            {post.tags.map((tag) => (
-              <Link href={`/tags/${tag}`} key={tag} passHref>
-                <Label color="teal" size="small">
-                  {tag}
-                </Label>
-              </Link>
-            ))}
-          </List.Description>
-        </List.Content>
-      </List.Item>
-    </Link>
+    <List.Item>
+      {post.author.avatarUrl && (
+        <Image circular size="tiny" src={post.author.avatarUrl} />
+      )}
+      <List.Content>
+        <List.Header as="h2">
+          <Link href={links.detail}>{post.title}</Link>
+        </List.Header>
+        <List.Description>
+          {formatISO(post.updated)}
+          {` | `}
+          {post.tags.map((tag) => (
+            <Link href={`/tags/${tag}`} key={tag} passHref>
+              <Label color="teal" size="small">
+                {tag}
+              </Label>
+            </Link>
+          ))}
+        </List.Description>
+      </List.Content>
+    </List.Item>
   );
 };
 
