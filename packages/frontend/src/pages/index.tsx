@@ -17,7 +17,7 @@ export const Page = () => {
   return (
     <LoadingWrapper loading={loading}>
       <ErrorWrapper error={error}>
-        {posts && <ViewTemplate headingText="" posts={posts} />}
+        {posts && <ViewTemplate headingText="Top" posts={posts} />}
       </ErrorWrapper>
     </LoadingWrapper>
   );

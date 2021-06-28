@@ -66,7 +66,8 @@ export const fetchPosts = async (
   const ref = app
     .firestore()
     .collection(`posts`)
-    .withConverter(postFirebaseConverter);
+    .withConverter(postFirebaseConverter)
+    .orderBy('updated', 'desc');
   const snapshot = await ref.get();
   const entities = snapshot.docs.map((snap) => snap.data());
   return bindAuthors(entities);
@@ -83,7 +84,8 @@ export const fetchPostsByTag = async (
     .firestore()
     .collection(`posts`)
     .withConverter(postFirebaseConverter)
-    .where('tags', 'array-contains', tag);
+    .where('tags', 'array-contains', tag)
+    .orderBy('updated', 'desc');
   const snapshot = await ref.get();
   const entities = snapshot.docs.map((snap) => snap.data());
   return bindAuthors(entities);
