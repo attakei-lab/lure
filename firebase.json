@@ -12,6 +12,10 @@
     ],
     "rewrites": [
       {
+        "source": "/tags/**",
+        "destination": "/tags/[tag].html"
+      },
+      {
         "source": "/profile",
         "destination": "/profile.html"
       },
