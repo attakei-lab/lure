@@ -1,10 +1,9 @@
 import React from 'react';
 import { Remark } from 'react-remark';
-import remarkFootnotes from 'remark-footnotes';
-import remarkGfm from 'remark-gfm';
-import remarkHighlightjs from 'remark-highlight.js';
+import footnotes from 'remark-footnotes';
+import gfm from 'remark-gfm';
+import highlightjs from 'remark-highlight.js';
 import externalLinks from 'remark-external-links';
-import 'highlight.js/styles/default.css';
 
 export type Props = {
   /** Markdownテキストソース */
@@ -20,9 +19,9 @@ export type Props = {
 export const View: React.FC<Props> = ({ source }) => (
   <Remark
     remarkPlugins={[
-      remarkGfm,
-      remarkHighlightjs,
-      [remarkFootnotes, { inlineNotes: true }],
+      gfm,
+      highlightjs,
+      [footnotes, { inlineNotes: true }],
       [externalLinks, { rel: 'noreferrer' }],
     ]}
   >

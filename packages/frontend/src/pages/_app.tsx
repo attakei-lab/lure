@@ -7,6 +7,7 @@ import LoginTemplate from '@/components/templates/Login';
 import { AppConfigContext, AppConfigProvider } from '@/contexts/config';
 import { FirebaseAppContext, FirebaseAppProvider } from '@/contexts/firebase';
 import 'bytemd/dist/index.min.css';
+import 'highlight.js/styles/default.css';
 import 'semantic-ui-css/semantic.min.css';
 import '@/style.css';
 
