@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { useEffect, useState } from 'react';
 import { HookProcess } from '@/applications/types';
-import { fetchPost, fetchPosts } from './queries';
+import { fetchPost, fetchPosts, fetchPostsByTag } from './queries';
 import { PostEntity } from './types';
 
 /**
@@ -71,6 +71,34 @@ export const usePosts = (
     (async () => {
       try {
         const posts = await fetchPosts(app);
+        setPosts(posts);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  return {
+    loading,
+    error,
+    posts,
+  };
+};
+
+export const usePostsWithTag = (
+  app: firebase.app.App,
+  tag: string
+): HookProcess<{ posts: PostEntity[] }> => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error>();
+  const [posts, setPosts] = useState<PostEntity[]>();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const posts = await fetchPostsByTag(app, tag);
         setPosts(posts);
       } catch (err) {
         setError(err);

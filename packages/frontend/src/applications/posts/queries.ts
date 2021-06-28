@@ -71,3 +71,20 @@ export const fetchPosts = async (
   const entities = snapshot.docs.map((snap) => snap.data());
   return bindAuthors(entities);
 };
+
+/**
+ * 特定タグの記事を一括で取得する
+ */
+export const fetchPostsByTag = async (
+  app: firebase.app.App,
+  tag: string
+): Promise<PostEntity[]> => {
+  const ref = app
+    .firestore()
+    .collection(`posts`)
+    .withConverter(postFirebaseConverter)
+    .where('tags', 'array-contains', tag);
+  const snapshot = await ref.get();
+  const entities = snapshot.docs.map((snap) => snap.data());
+  return bindAuthors(entities);
+};
