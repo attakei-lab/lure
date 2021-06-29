@@ -1,9 +1,17 @@
+import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import { pushPostRevision } from './modules/revisions';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+admin.initializeApp();
+
+export const handleCreatePost = functions.firestore
+  .document(`posts/{postId}`)
+  .onCreate(async (post, context) => {
+    await pushPostRevision(admin.app().firestore(), post);
+  });
+
+export const handleUpdatePost = functions.firestore
+  .document(`posts/{postId}`)
+  .onUpdate(async (changed, context) => {
+    await pushPostRevision(admin.app().firestore(), changed.after);
+  });
