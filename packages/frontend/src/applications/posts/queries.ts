@@ -15,33 +15,22 @@ export const bindAuthors = async (
 ): Promise<PostEntity[]> => {
   // 最初からmapのみも考えたが、パフォーマンスを懸念して筆者情報は1人1回しか取らないようにする
   const authors = new Map<string, UserProfileEntity>();
-  await Promise.all(
-    entities.map(async (entity) => {
-      if (authors.has(entity.createdRef.id)) {
-        return;
-      }
-      authors.set(
-        entity.createdRef.id,
-        (
-          await entity.createdRef.withConverter(userProfileConverter).get()
-        ).data()
-      );
-    })
+  const authorRefs = new Map(
+    entities
+      .map((e) => e.authorRefs)
+      .flat()
+      .map((ref) => [ref.id, ref])
   );
   await Promise.all(
-    entities.map(async (entity) => {
-      if (authors.has(entity.updatedRef.id)) {
-        return;
-      }
+    Array.from(authorRefs.entries()).map(async ([id, ref]) => {
       authors.set(
-        entity.updatedRef.id,
-        (
-          await entity.updatedRef.withConverter(userProfileConverter).get()
-        ).data()
+        id,
+        (await ref.withConverter(userProfileConverter).get()).data()
       );
     })
   );
   return entities.map((entity) => {
+    entity.authors = entity.authorRefs.map((ref) => authors.get(ref.id));
     entity.createdBy = authors.get(entity.createdRef.id);
     entity.updatedBy = authors.get(entity.updatedRef.id);
     return entity;
@@ -65,10 +54,7 @@ export const fetchPost = async (
     return null;
   }
   const entity = snapshot.data();
-  entity.updatedBy = (
-    await entity.updatedRef.withConverter(userProfileConverter).get()
-  ).data();
-  return entity;
+  return (await bindAuthors([entity]))[0];
 };
 
 /**
@@ -81,7 +67,7 @@ export const fetchPosts = async (
     .firestore()
     .collection(`posts`)
     .withConverter(postFirebaseConverter)
-    .orderBy('updated', 'desc');
+    .orderBy('updatedAt', 'desc');
   const snapshot = await ref.get();
   const entities = snapshot.docs.map((snap) => snap.data());
   return bindAuthors(entities);
@@ -99,7 +85,7 @@ export const fetchPostsByTag = async (
     .collection(`posts`)
     .withConverter(postFirebaseConverter)
     .where('tags', 'array-contains', tag)
-    .orderBy('updated', 'desc');
+    .orderBy('updatedAt', 'desc');
   const snapshot = await ref.get();
   const entities = snapshot.docs.map((snap) => snap.data());
   return bindAuthors(entities);

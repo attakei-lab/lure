@@ -20,12 +20,14 @@ export type Post = {
   updatedAt: Date;
   createdRef: DocumentReference;
   updatedRef: DocumentReference;
+  authorRefs: DocumentReference[];
 } & Content;
 
 export type PostEntity = Entity<
   Post & {
     createdBy?: UserProfileEntity;
     updatedBy?: UserProfileEntity;
+    authors?: UserProfileEntity[];
   }
 >;
 

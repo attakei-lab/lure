@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import Template from '@/components/templates/ContentEdit';
 import { FirebaseAppContext } from '@/contexts/firebase';
+import { updateAuthors } from '@/applications/posts/services';
 import { Content, SubmitResult } from '@/applications/posts/types';
 import { simpleValidate } from '@/applications/posts/utils';
 
@@ -27,8 +28,9 @@ export const Page: React.FC = () => {
     console.log('Start to store for firestore');
     const docData = {
       ...content,
-      createdBy: profile.ref,
-      updatedBy: profile.ref,
+      authors: updateAuthors([], profile),
+      createdBy: profile,
+      updatedBy: profile,
       createdAt: now,
       updatedAt: now,
     };

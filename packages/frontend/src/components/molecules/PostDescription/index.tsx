@@ -19,8 +19,8 @@ export const View: React.FC<Props> = ({ post }) => {
   const links = getLinks(post);
   return (
     <List.Item>
-      {post.createdBy.avatarUrl && (
-        <Image circular size="tiny" src={post.createdBy.avatarUrl} />
+      {post.updatedBy.avatarUrl && (
+        <Image circular size="tiny" src={post.updatedBy.avatarUrl} />
       )}
       <List.Content>
         <List.Header as="h2">

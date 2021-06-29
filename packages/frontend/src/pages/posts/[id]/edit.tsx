@@ -5,7 +5,11 @@ import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
 import ViewTemplate from '@/components/templates/ContentEdit';
 import { FirebaseAppContext } from '@/contexts/firebase';
 import { usePost } from '@/applications/posts/hooks';
-import { getLinks, postFirebaseConverter } from '@/applications/posts/services';
+import {
+  getLinks,
+  postFirebaseConverter,
+  updateAuthors,
+} from '@/applications/posts/services';
 import { simpleValidate } from '@/applications/posts/utils';
 import { Content } from '@/applications/posts/types';
 
@@ -48,7 +52,8 @@ export const Page = () => {
     const nextPost = {
       ...post,
       ...content,
-      updatedBy: profile.ref,
+      authors: updateAuthors(post.authors, profile),
+      updatedBy: profile,
       updatedAt: new Date(),
     };
     return nextPost.ref

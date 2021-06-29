@@ -18,9 +18,7 @@ export const main = async () => {
         data.createdRef = data.authorRef;
         data.updatedAt = data.updated;
         data.updatedRef = data.authorRef;
-        delete data.createdBy;
-        delete data.updatedBy;
-        data.authors = [data.authorRef];
+        data.authorRefs = [data.authorRef];
         return snapshot.ref.set(data);
       });
     })
