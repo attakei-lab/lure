@@ -8,6 +8,7 @@ const defaultProps: Props = {
   post: {
     id: 'mocked-id',
     ref: null,
+    authorRefs: [],
     createdRef: null,
     updatedRef: null,
     createdBy: {

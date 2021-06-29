@@ -13,6 +13,7 @@ const defaultProps: Props = {
     {
       id: 'mocked-id',
       ref: null,
+      authorRefs: [],
       createdRef: null,
       updatedRef: null,
       createdBy: {
@@ -38,6 +39,7 @@ const defaultProps: Props = {
     {
       id: 'mocked-id',
       ref: null,
+      authorRefs: [],
       createdRef: null,
       updatedRef: null,
       createdBy: {

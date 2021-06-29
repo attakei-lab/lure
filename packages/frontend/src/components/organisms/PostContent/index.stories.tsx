@@ -8,6 +8,7 @@ const defaultProps: Props = {
   post: {
     id: 'mocked-id',
     ref: null,
+    authorRefs: [],
     createdRef: null,
     updatedRef: null,
     createdBy: {
@@ -56,7 +57,7 @@ Default.args = defaultProps;
 export const CanDelete = ViewTemplate.bind({});
 CanDelete.args = {
   ...defaultProps,
-  user: defaultProps.post.author,
+  user: defaultProps.post.updatedBy,
 };
 
 export default {

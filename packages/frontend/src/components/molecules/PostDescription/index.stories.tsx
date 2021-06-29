@@ -14,6 +14,7 @@ const encodedImage =
 
 const defaultProps: Props = {
   post: {
+    authorRefs: [],
     id: 'mocked-id',
     ref: null,
     createdRef: null,
