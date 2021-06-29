@@ -13,7 +13,7 @@ export const pushPostRevision = async (
 ): Promise<void> => {
   // TODO: Entity型あたりを使うことが望ましい
   const data = snapshot.data()!;
-  const id = data.updated.toMillis() as number;
+  const id = data.updatedAt.toMillis() as number;
   const revRef = firestore.doc(`posts/${snapshot.id}/revisions/${id}`);
   await revRef.set(data);
 };
