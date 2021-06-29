@@ -17,19 +17,33 @@ export const bindAuthors = async (
   const authors = new Map<string, UserProfileEntity>();
   await Promise.all(
     entities.map(async (entity) => {
-      if (authors.has(entity.authorRef.id)) {
+      if (authors.has(entity.createdRef.id)) {
         return;
       }
       authors.set(
-        entity.authorRef.id,
+        entity.createdRef.id,
         (
-          await entity.authorRef.withConverter(userProfileConverter).get()
+          await entity.createdRef.withConverter(userProfileConverter).get()
+        ).data()
+      );
+    })
+  );
+  await Promise.all(
+    entities.map(async (entity) => {
+      if (authors.has(entity.updatedRef.id)) {
+        return;
+      }
+      authors.set(
+        entity.updatedRef.id,
+        (
+          await entity.updatedRef.withConverter(userProfileConverter).get()
         ).data()
       );
     })
   );
   return entities.map((entity) => {
-    entity.author = authors.get(entity.authorRef.id);
+    entity.createdBy = authors.get(entity.createdRef.id);
+    entity.updatedBy = authors.get(entity.updatedRef.id);
     return entity;
   });
 };
@@ -51,8 +65,8 @@ export const fetchPost = async (
     return null;
   }
   const entity = snapshot.data();
-  entity.author = (
-    await entity.authorRef.withConverter(userProfileConverter).get()
+  entity.updatedBy = (
+    await entity.updatedRef.withConverter(userProfileConverter).get()
   ).data();
   return entity;
 };

@@ -19,15 +19,15 @@ export const View: React.FC<Props> = ({ post }) => {
   const links = getLinks(post);
   return (
     <List.Item>
-      {post.author.avatarUrl && (
-        <Image circular size="tiny" src={post.author.avatarUrl} />
+      {post.createdBy.avatarUrl && (
+        <Image circular size="tiny" src={post.createdBy.avatarUrl} />
       )}
       <List.Content>
         <List.Header as="h2">
           <Link href={links.detail}>{post.title}</Link>
         </List.Header>
         <List.Description>
-          {formatISO(post.updated)}
+          {formatISO(post.updatedAt)}
           {` | `}
           {post.tags.map((tag) => (
             <Link href={`/tags/${tag}`} key={tag} passHref>

@@ -11,10 +11,10 @@ export const getLinks = (post: PostEntity): PostLinks => {
 };
 
 export const canEdit = (post: PostEntity, user: UserProfileEntity): boolean =>
-  post.author.id === user.id;
+  true;
 
 export const canDelete = (post: PostEntity, user: UserProfileEntity): boolean =>
-  post.author.id === user.id;
+  post.createdBy.id === user.id;
 
 /**
  * 記事エンティティーのFirestore相互変換
@@ -30,9 +30,10 @@ export const postFirebaseConverter: firebase.firestore.FirestoreDataConverter<Po
         title: data.title,
         body: data.body,
         tags: data.tags,
-        created: fromUnixTime(data.created.seconds),
-        updated: fromUnixTime(data.updated.seconds),
-        authorRef: data.authorRef,
+        createdAt: fromUnixTime(data.createdAt.seconds),
+        updatedAt: fromUnixTime(data.updatedAt.seconds),
+        createdRef: data.createdRef,
+        updatedRef: data.updatedRef,
       };
     },
     toFirestore: (post) => {
@@ -40,9 +41,10 @@ export const postFirebaseConverter: firebase.firestore.FirestoreDataConverter<Po
         title: post.title,
         body: post.body,
         tags: post.tags,
-        created: post.created,
-        updated: post.updated,
-        authorRef: post.author.ref,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        createdRef: post.createdBy.ref,
+        updatedRef: post.updatedBy.ref,
       };
     },
   };

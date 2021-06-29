@@ -8,8 +8,16 @@ const defaultProps: Props = {
   post: {
     id: 'mocked-id',
     ref: null,
-    authorRef: null,
-    author: {
+    createdRef: null,
+    updatedRef: null,
+    createdBy: {
+      id: 'my-user',
+      ref: null,
+      name: 'test-user',
+      avatarUrl: 'http://example.com',
+      created: new Date(),
+    },
+    updatedBy: {
       id: 'my-user',
       ref: null,
       name: 'test-user',
@@ -30,8 +38,8 @@ def hello():
 \`\`\`
       `,
     tags: ['hello', 'world', 'example'],
-    created: new Date(),
-    updated: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   user: {
     id: 'not-me',

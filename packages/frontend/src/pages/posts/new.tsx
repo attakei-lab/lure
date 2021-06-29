@@ -27,9 +27,10 @@ export const Page: React.FC = () => {
     console.log('Start to store for firestore');
     const docData = {
       ...content,
-      authorRef: profile.ref,
-      created: now,
-      updated: now,
+      createdBy: profile.ref,
+      updatedBy: profile.ref,
+      createdAt: now,
+      updatedAt: now,
     };
     const docRef = app.firestore().collection('posts').doc();
     return docRef

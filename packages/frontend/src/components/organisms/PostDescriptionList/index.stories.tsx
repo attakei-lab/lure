@@ -13,8 +13,16 @@ const defaultProps: Props = {
     {
       id: 'mocked-id',
       ref: null,
-      authorRef: null,
-      author: {
+      createdRef: null,
+      updatedRef: null,
+      createdBy: {
+        id: 'my-user',
+        ref: null,
+        name: 'test-user',
+        avatarUrl: encodedImage,
+        created: new Date(),
+      },
+      updatedBy: {
         id: 'my-user',
         ref: null,
         name: 'test-user',
@@ -24,14 +32,22 @@ const defaultProps: Props = {
       body: '',
       tags: ['hello', 'world'],
       title: 'Example title',
-      created: new Date(),
-      updated: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
     {
       id: 'mocked-id',
       ref: null,
-      authorRef: null,
-      author: {
+      createdRef: null,
+      updatedRef: null,
+      createdBy: {
+        id: 'my-user',
+        ref: null,
+        name: 'test-user',
+        avatarUrl: encodedImage,
+        created: new Date(),
+      },
+      updatedBy: {
         id: 'my-user',
         ref: null,
         name: 'test-user',
@@ -41,8 +57,8 @@ const defaultProps: Props = {
       body: '',
       tags: ['hello', 'world'],
       title: 'Example title 2',
-      created: new Date(),
-      updated: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
   ],
 };

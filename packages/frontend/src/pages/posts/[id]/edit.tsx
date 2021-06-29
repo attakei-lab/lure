@@ -16,7 +16,7 @@ import { Content } from '@/applications/posts/types';
  */
 export const Page = () => {
   const router = useRouter();
-  const { app } = useContext(FirebaseAppContext);
+  const { app, profile } = useContext(FirebaseAppContext);
   const [content, setContent] = useState<Content>();
   const { post, error, loading } = (() => {
     if (router.query.id && typeof router.query.id === 'string') {
@@ -48,7 +48,8 @@ export const Page = () => {
     const nextPost = {
       ...post,
       ...content,
-      updated: new Date(),
+      updatedBy: profile.ref,
+      updatedAt: new Date(),
     };
     return nextPost.ref
       .withConverter(postFirebaseConverter)

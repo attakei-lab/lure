@@ -16,15 +16,16 @@ export type Content = {
  * ユーザー記事情報
  */
 export type Post = {
-  created: Date;
-  updated: Date;
-  authorRef: DocumentReference;
+  createdAt: Date;
+  updatedAt: Date;
+  createdRef: DocumentReference;
+  updatedRef: DocumentReference;
 } & Content;
 
 export type PostEntity = Entity<
   Post & {
-    // 著者情報
-    author?: UserProfileEntity;
+    createdBy?: UserProfileEntity;
+    updatedBy?: UserProfileEntity;
   }
 >;
 

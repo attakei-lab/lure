@@ -8,8 +8,16 @@ const defaultProps: Props = {
   post: {
     id: 'mocked-id',
     ref: null,
-    authorRef: null,
-    author: {
+    createdRef: null,
+    updatedRef: null,
+    createdBy: {
+      id: 'my-user',
+      ref: null,
+      name: 'test-user',
+      avatarUrl: 'http://example.com',
+      created: new Date(),
+    },
+    updatedBy: {
       id: 'my-user',
       ref: null,
       name: 'test-user',
@@ -19,8 +27,8 @@ const defaultProps: Props = {
     body: '',
     tags: [],
     title: '',
-    created: new Date(),
-    updated: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   user: {
     id: 'not-me',
@@ -37,7 +45,7 @@ Default.args = defaultProps;
 export const CanDelete = ViewTemplate.bind({});
 CanDelete.args = {
   ...defaultProps,
-  user: defaultProps.post.author,
+  user: defaultProps.post.updatedBy,
 };
 
 export default {
