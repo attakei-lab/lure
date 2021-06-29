@@ -1,12 +1,15 @@
+import { UserProfileEntity } from '@/applications/auth/types';
 import { differenceInMinutes, formatISO } from 'date-fns';
 import React from 'react';
 import { Container, Header, List } from 'semantic-ui-react';
 
 export type Props = {
   /** 作成日時 */
-  created: Date;
+  createdAt: Date;
+  createdBy: UserProfileEntity;
   /** 更新日時 */
-  updated: Date;
+  updatedAt: Date;
+  updatedBy: UserProfileEntity;
 };
 
 /**
@@ -30,17 +33,34 @@ export const formatDate = (date: Date, now: Date): string => {
  *
  * @param Props props
  */
-export const View: React.FC<Props> = ({ created, updated }) => {
+export const View: React.FC<Props> = ({
+  createdAt,
+  createdBy,
+  updatedAt,
+  updatedBy,
+}) => {
   const now = new Date();
   return (
     <Container>
       <Header as="h3" dividing>
         History
       </Header>
-      <List>
-        <List.Item>最終更新: {formatDate(updated, now)}</List.Item>
-        <List.Item>新規作成: {formatDate(created, now)}</List.Item>
-      </List>
+      <Container>
+        <Header as="h4" dividing>
+          最終更新
+        </Header>
+        <List bulleted>
+          <List.Item>{formatDate(updatedAt, now)}</List.Item>
+          <List.Item>{updatedBy.name}</List.Item>
+        </List>
+        <Header as="h4" dividing>
+          新規作成
+        </Header>
+        <List bulleted>
+          <List.Item>{formatDate(createdAt, now)}</List.Item>
+          <List.Item>{createdBy.name}</List.Item>
+        </List>
+      </Container>
     </Container>
   );
 };

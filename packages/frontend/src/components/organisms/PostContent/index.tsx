@@ -29,8 +29,10 @@ export const View: React.FC<Props> = ({ post, user }) => {
               <ContentTags tags={post.tags} />
               <Divider hidden />
               <ContentHistory
-                created={post.createdAt}
-                updated={post.updatedAt}
+                createdAt={post.createdAt}
+                createdBy={post.createdBy}
+                updatedAt={post.updatedAt}
+                updatedBy={post.updatedBy}
               />
             </Container>
           </Grid.Column>
