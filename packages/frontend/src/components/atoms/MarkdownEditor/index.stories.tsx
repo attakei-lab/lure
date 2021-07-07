@@ -7,6 +7,7 @@ const ViewTemplate = ({ ...args }: Props) => <View {...args} />;
 const defaultProps: Props = {
   handleInput: (input) => input,
   input: '',
+  handleImages: () => null,
 };
 
 export const Init = ViewTemplate.bind({});

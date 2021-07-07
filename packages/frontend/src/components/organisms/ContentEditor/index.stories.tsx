@@ -18,6 +18,7 @@ const defaultProps: Props = {
   },
   setContent: (content) => content,
   handleSubmit: async () => null,
+  handleImages: () => null,
   submitLabel: 'Submit',
 };
 

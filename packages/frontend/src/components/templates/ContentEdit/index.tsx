@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import React from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import ContentEditor from '@/components/organisms/ContentEditor';
 import { Content, PostEntity, SubmitResult } from '@/applications/posts/types';
 import BaseLayout from '@/components/templates/BaseLayout';
+import { UploadImagesHandler } from '@/types';
 
 export type Props = {
   content: Content | PostEntity;
@@ -11,6 +12,7 @@ export type Props = {
   headingText: string;
   setContent: (content: Content | PostEntity) => void;
   submitLabel: string;
+  handleImages: UploadImagesHandler;
 };
 
 export const View: React.FC<Props> = ({
@@ -19,6 +21,7 @@ export const View: React.FC<Props> = ({
   headingText,
   setContent,
   submitLabel,
+  handleImages,
 }) => {
   return (
     <>
@@ -33,6 +36,7 @@ export const View: React.FC<Props> = ({
             setContent={setContent}
             handleSubmit={handleSubmit}
             submitLabel={submitLabel}
+            handleImages={handleImages}
           />
         </main>
       </BaseLayout>

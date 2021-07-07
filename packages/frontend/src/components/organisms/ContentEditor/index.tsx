@@ -7,12 +7,14 @@ import ContentFormController, {
   Message,
 } from '@/components/molecules/ContentFormController';
 import TagsInput from '@/components/molecules/TagsInput';
+import { UploadImagesHandler } from '@/types';
 
 export type Props = {
   content: Content;
   setContent: (content: Content) => void;
   submitLabel: string;
   handleSubmit: () => Promise<SubmitResult>;
+  handleImages: UploadImagesHandler;
 };
 
 export const View: React.FC<Props> = ({
@@ -20,6 +22,7 @@ export const View: React.FC<Props> = ({
   setContent,
   handleSubmit,
   submitLabel,
+  handleImages,
 }) => {
   const router = useRouter();
   const [disabled, setDisabled] = useState(false);
@@ -75,6 +78,7 @@ export const View: React.FC<Props> = ({
           setBody(input);
         }}
         input={body}
+        handleImages={handleImages}
       />
       <Divider />
       <Container textAlign="right">
