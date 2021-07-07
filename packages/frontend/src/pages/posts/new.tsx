@@ -3,7 +3,10 @@ import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import Template from '@/components/templates/ContentEdit';
 import { FirebaseAppContext } from '@/contexts/firebase';
-import { updateAuthors } from '@/applications/posts/services';
+import {
+  postFirebaseConverter,
+  updateAuthors,
+} from '@/applications/posts/services';
 import { Content, SubmitResult } from '@/applications/posts/types';
 import { simpleValidate } from '@/applications/posts/utils';
 
@@ -26,7 +29,17 @@ export const Page: React.FC = () => {
     }
     const now = new Date();
     console.log('Start to store for firestore');
+    const docRef = app
+      .firestore()
+      .collection('posts')
+      .doc()
+      .withConverter(postFirebaseConverter);
     const docData = {
+      id: docRef.id,
+      ref: docRef,
+      authorRefs: [],
+      createdRef: null,
+      updatedRef: null,
       ...content,
       authors: updateAuthors([], profile),
       createdBy: profile,
@@ -34,7 +47,6 @@ export const Page: React.FC = () => {
       createdAt: now,
       updatedAt: now,
     };
-    const docRef = app.firestore().collection('posts').doc();
     return docRef
       .set(docData)
       .then(() => {
