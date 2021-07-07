@@ -51,5 +51,8 @@
   },
   "functions": {
     "source": "packages/backend"
+  },
+  "storage": {
+    "rules": "firebase/storage.rules"
   }
 }
