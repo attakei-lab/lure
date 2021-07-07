@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import Template from '@/components/templates/ContentEdit';
 import { FirebaseAppContext } from '@/contexts/firebase';
+import { uploadImagesForPost } from '@/applications/posts/commands';
 import {
   postFirebaseConverter,
   updateAuthors,
@@ -84,22 +85,6 @@ export const Page: React.FC = () => {
       });
   };
 
-  const uploadImages = async (files: File[]) => {
-    return Promise.all(
-      files.map(async (f) => {
-        const storage = app.storage();
-        const filename = `uploads/${post.id}/${f.name}`;
-        const fileRef = storage.ref(filename);
-        await fileRef.put(f);
-        return {
-          alt: f.name,
-          title: f.name,
-          url: await fileRef.getDownloadURL(),
-        };
-      })
-    );
-  };
-
   return (
     <>
       <Head>
@@ -111,7 +96,7 @@ export const Page: React.FC = () => {
         headingText="New content"
         setContent={setContent}
         submitLabel="保存"
-        handleImages={uploadImages}
+        handleImages={async (files) => uploadImagesForPost(app, post, files)}
       />
     </>
   );

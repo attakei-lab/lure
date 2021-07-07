@@ -1,4 +1,5 @@
 import { DocumentReference } from '@firebase/firestore-types';
+import { Image } from 'mdast';
 import { SemanticCOLORS } from 'semantic-ui-react';
 import { UserProfileEntity } from '@/applications/auth/types';
 import { Entity } from '@/applications/types';
@@ -41,3 +42,8 @@ export type SubmitResult = {
   message?: string;
   next?: () => boolean | Promise<boolean>;
 };
+
+/**
+ * 記事内のソースに挿入するための画像表示用情報
+ */
+export type ImageMetadata = Pick<Image, 'url' | 'alt' | 'title'>;

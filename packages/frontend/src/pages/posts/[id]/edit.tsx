@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
+import { uploadImagesForPost } from '@/applications/posts/commands';
 import { Wrapper as ErrorWrapper } from '@/components/templates/Error';
 import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
 import ViewTemplate from '@/components/templates/ContentEdit';
@@ -78,22 +79,6 @@ export const Page = () => {
       });
   };
 
-  const uploadImages = async (files: File[]) => {
-    return Promise.all(
-      files.map(async (f) => {
-        const storage = app.storage();
-        const filename = `uploads/${post.id}/${f.name}`;
-        const fileRef = storage.ref(filename);
-        await fileRef.put(f);
-        return {
-          alt: f.name,
-          title: f.name,
-          url: await fileRef.getDownloadURL(),
-        };
-      })
-    );
-  };
-
   return (
     <LoadingWrapper loading={loading}>
       <ErrorWrapper error={error}>
@@ -104,7 +89,9 @@ export const Page = () => {
             headingText="記事の編集"
             setContent={setContent}
             submitLabel="保存"
-            handleImages={uploadImages}
+            handleImages={async (files) =>
+              uploadImagesForPost(app, post, files)
+            }
           />
         )}
       </ErrorWrapper>
