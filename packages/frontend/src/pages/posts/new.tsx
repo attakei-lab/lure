@@ -7,8 +7,9 @@ import {
   postFirebaseConverter,
   updateAuthors,
 } from '@/applications/posts/services';
-import { Content, SubmitResult } from '@/applications/posts/types';
+import { Content, PostEntity, SubmitResult } from '@/applications/posts/types';
 import { simpleValidate } from '@/applications/posts/utils';
+import { useEffect } from 'react';
 
 export const Page: React.FC = () => {
   const { app, profile } = useContext(FirebaseAppContext);
@@ -18,6 +19,34 @@ export const Page: React.FC = () => {
     tags: [],
     title: '',
   });
+  const [post, setPost] = useState<PostEntity>(() => {
+    const now = new Date();
+    const ref = app
+      .firestore()
+      .collection('posts')
+      .doc()
+      .withConverter(postFirebaseConverter);
+    return {
+      id: ref.id,
+      ref: ref,
+      authorRefs: [],
+      createdRef: null,
+      updatedRef: null,
+      ...content,
+      authors: updateAuthors([], profile),
+      createdBy: profile,
+      updatedBy: profile,
+      createdAt: now,
+      updatedAt: now,
+    };
+  });
+
+  useEffect(() => {
+    setPost({
+      ...post,
+      ...content,
+    });
+  }, [content]);
 
   const handleSubmit = async (): Promise<SubmitResult> => {
     const validateMsg = simpleValidate(content);
@@ -29,28 +58,15 @@ export const Page: React.FC = () => {
     }
     const now = new Date();
     console.log('Start to store for firestore');
-    const docRef = app
-      .firestore()
-      .collection('posts')
-      .doc()
-      .withConverter(postFirebaseConverter);
     const docData = {
-      id: docRef.id,
-      ref: docRef,
-      authorRefs: [],
-      createdRef: null,
-      updatedRef: null,
-      ...content,
-      authors: updateAuthors([], profile),
-      createdBy: profile,
-      updatedBy: profile,
+      ...post,
       createdAt: now,
       updatedAt: now,
     };
-    return docRef
+    return docData.ref
       .set(docData)
       .then(() => {
-        const nextUrl = `/posts/${docRef.id}`;
+        const nextUrl = `/posts/${post.id}`;
         console.debug(`Created content at ${nextUrl}`);
         return {
           message: '保存しました。ページを切り替えます...',
@@ -68,6 +84,22 @@ export const Page: React.FC = () => {
       });
   };
 
+  const uploadImages = async (files: File[]) => {
+    return Promise.all(
+      files.map(async (f) => {
+        const storage = app.storage();
+        const filename = `uploads/${post.id}/${f.name}`;
+        const fileRef = storage.ref(filename);
+        await fileRef.put(f);
+        return {
+          alt: f.name,
+          title: f.name,
+          url: await fileRef.getDownloadURL(),
+        };
+      })
+    );
+  };
+
   return (
     <>
       <Head>
@@ -79,6 +111,7 @@ export const Page: React.FC = () => {
         headingText="New content"
         setContent={setContent}
         submitLabel="保存"
+        handleImages={uploadImages}
       />
     </>
   );

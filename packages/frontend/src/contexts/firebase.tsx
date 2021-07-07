@@ -8,6 +8,7 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import 'firebase/firestore';
+import 'firebase/storage';
 import { configureUserProfile } from '@/applications/auth/commands';
 import { UserProfileEntity } from '@/applications/auth/types';
 
