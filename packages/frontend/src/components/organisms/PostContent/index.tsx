@@ -17,7 +17,7 @@ export const View: React.FC<Props> = ({ post, user }) => {
     <>
       <Container>
         <Header as="h1">{post.title}</Header>
-        <Grid>
+        <Grid stackable>
           <Grid.Column width={12} role="article">
             <Divider hidden />
             <MarkdownViewer source={post.body} />
