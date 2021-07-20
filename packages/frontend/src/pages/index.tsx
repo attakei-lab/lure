@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { usePostsWithCursor } from '@/applications/posts/hooks';
 import { Wrapper as ErrorWrapper } from '@/components/templates/Error';
 import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
@@ -13,6 +13,22 @@ import { FirebaseAppContext } from '@/contexts/firebase';
 export const Page = () => {
   const { app } = useContext(FirebaseAppContext);
   const { posts, error, loading, fetchNext, hasNext } = usePostsWithCursor(app);
+  const [nextDisabled, setNextDisabled] = useState<boolean>(false);
+  const [nextLoading, setNextLoading] = useState<boolean>(false);
+
+  const handleFetchNext = async () => {
+    setNextDisabled(true);
+    setNextLoading(true);
+    try {
+      await fetchNext();
+    } catch (e) {
+      setNextLoading(false);
+      setNextDisabled(!hasNext);
+      throw e;
+    }
+    setNextLoading(false);
+    setNextDisabled(!hasNext);
+  };
 
   return (
     <LoadingWrapper loading={loading}>
@@ -21,8 +37,9 @@ export const Page = () => {
           <ViewTemplate
             headingText="Top"
             posts={posts}
-            fetchNext={fetchNext}
-            hasNext={hasNext}
+            nextButtonDisabled={nextDisabled}
+            nextButtonHandler={handleFetchNext}
+            nextButtonLoading={nextLoading}
           />
         )}
       </ErrorWrapper>

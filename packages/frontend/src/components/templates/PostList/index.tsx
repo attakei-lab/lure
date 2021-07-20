@@ -8,14 +8,16 @@ import BaseLayout from '@/components/templates/BaseLayout';
 export type Props = {
   headingText: string;
   posts: PostEntity[];
-  hasNext: boolean;
-  fetchNext: () => Promise<any>;
+  nextButtonDisabled: boolean;
+  nextButtonHandler: () => Promise<any>; // eslint-disabled: @typescript-eslint/no-explicit-any
+  nextButtonLoading: boolean;
 };
 
 export const View: React.FC<Props> = ({
-  fetchNext,
-  hasNext,
   headingText,
+  nextButtonDisabled,
+  nextButtonHandler,
+  nextButtonLoading,
   posts,
 }) => {
   return (
@@ -27,8 +29,12 @@ export const View: React.FC<Props> = ({
         <main>
           <Container>
             <Header as="h1">{headingText}</Header>
-            <PostDescriptionList posts={posts} />
-            {hasNext && <button onClick={fetchNext}>Next</button>}
+            <PostDescriptionList
+              nextButtonDisabled={nextButtonDisabled}
+              nextButtonHandler={nextButtonHandler}
+              nextButtonLoading={nextButtonLoading}
+              posts={posts}
+            />
           </Container>
         </main>
       </BaseLayout>

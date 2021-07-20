@@ -1,5 +1,4 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
 import { Meta } from '@storybook/react';
 import { Props, View } from '.';
 
@@ -63,6 +62,9 @@ const defaultProps: Props = {
       updatedAt: new Date(),
     },
   ],
+  nextButtonDisabled: false,
+  nextButtonHandler: () => null,
+  nextButtonLoading: false,
 };
 
 export const Default = ViewTemplate.bind({});
