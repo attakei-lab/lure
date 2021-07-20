@@ -69,6 +69,6 @@ export const Default = ViewTemplate.bind({});
 Default.args = defaultProps;
 
 export default {
-  title: 'organisims/PostDescriptionList',
+  title: 'organisms/PostDescriptionList',
   component: View,
 } as Meta;
