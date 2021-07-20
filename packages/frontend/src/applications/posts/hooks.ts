@@ -1,7 +1,12 @@
 import firebase from 'firebase';
 import { useEffect, useState } from 'react';
 import { HookProcess } from '@/applications/types';
-import { fetchPost, fetchPosts, fetchPostsByTag } from './queries';
+import {
+  fetchPost,
+  fetchPosts,
+  fetchPostsByTag,
+  fetchPostsForCursor,
+} from './queries';
 import { PostEntity } from './types';
 
 /**
@@ -112,5 +117,47 @@ export const usePostsWithTag = (
     loading,
     error,
     posts,
+  };
+};
+
+export const usePostsWithCursor = (
+  app: firebase.app.App
+): HookProcess<{
+  posts: PostEntity[];
+  fetchNext: () => Promise<void>;
+  hasNext: boolean;
+}> => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error>();
+  const [posts, setPosts] = useState<PostEntity[]>([]);
+  const [latest, setLatest] = useState<firebase.firestore.DocumentSnapshot>();
+  const [hasNext, setHasNext] = useState<boolean>();
+
+  const fetchNext = async () => {
+    try {
+      const [nextPosts, nextLatest] = await fetchPostsForCursor(app, latest);
+      setPosts([...posts, ...nextPosts]);
+      setLatest(nextLatest);
+      setHasNext(nextPosts.length > 0);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //初回に先頭からの記事取得をする
+  useEffect(() => {
+    (async () => {
+      await fetchNext();
+    })();
+  }, []);
+
+  return {
+    loading,
+    error,
+    posts,
+    fetchNext,
+    hasNext,
   };
 };

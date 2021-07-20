@@ -7,6 +7,7 @@ type Props = {
 };
 
 export const View: React.FC<Props> = ({ error }) => {
+  console.log(error);
   return (
     <BaseLayout>
       <main>

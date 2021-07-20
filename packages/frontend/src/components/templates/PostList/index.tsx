@@ -8,9 +8,16 @@ import BaseLayout from '@/components/templates/BaseLayout';
 export type Props = {
   headingText: string;
   posts: PostEntity[];
+  hasNext: boolean;
+  fetchNext: () => Promise<any>;
 };
 
-export const View: React.FC<Props> = ({ headingText, posts }) => {
+export const View: React.FC<Props> = ({
+  fetchNext,
+  hasNext,
+  headingText,
+  posts,
+}) => {
   return (
     <>
       <Head>
@@ -21,6 +28,7 @@ export const View: React.FC<Props> = ({ headingText, posts }) => {
           <Container>
             <Header as="h1">{headingText}</Header>
             <PostDescriptionList posts={posts} />
+            {hasNext && <button onClick={fetchNext}>Next</button>}
           </Container>
         </main>
       </BaseLayout>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { usePosts } from '@/applications/posts/hooks';
+import { usePostsWithCursor } from '@/applications/posts/hooks';
 import { Wrapper as ErrorWrapper } from '@/components/templates/Error';
 import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
 import ViewTemplate from '@/components/templates/PostList';
@@ -12,12 +12,19 @@ import { FirebaseAppContext } from '@/contexts/firebase';
  */
 export const Page = () => {
   const { app } = useContext(FirebaseAppContext);
-  const { posts, error, loading } = usePosts(app);
+  const { posts, error, loading, fetchNext, hasNext } = usePostsWithCursor(app);
 
   return (
     <LoadingWrapper loading={loading}>
       <ErrorWrapper error={error}>
-        {posts && <ViewTemplate headingText="Top" posts={posts} />}
+        {posts && (
+          <ViewTemplate
+            headingText="Top"
+            posts={posts}
+            fetchNext={fetchNext}
+            hasNext={hasNext}
+          />
+        )}
       </ErrorWrapper>
     </LoadingWrapper>
   );
