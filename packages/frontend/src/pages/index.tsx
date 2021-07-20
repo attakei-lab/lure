@@ -4,6 +4,7 @@ import { Wrapper as ErrorWrapper } from '@/components/templates/Error';
 import { Wrapper as LoadingWrapper } from '@/components/templates/Loading';
 import ViewTemplate from '@/components/templates/PostList';
 import { FirebaseAppContext } from '@/contexts/firebase';
+import { useEffect } from 'react';
 
 /**
  * トップページ
@@ -15,6 +16,13 @@ export const Page = () => {
   const { posts, error, loading, fetchNext, hasNext } = usePostsWithCursor(app);
   const [nextDisabled, setNextDisabled] = useState<boolean>(false);
   const [nextLoading, setNextLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (nextLoading) {
+      setNextDisabled(true);
+    }
+    setNextDisabled(!hasNext);
+  }, [nextLoading, hasNext]);
 
   const handleFetchNext = async () => {
     setNextDisabled(true);
