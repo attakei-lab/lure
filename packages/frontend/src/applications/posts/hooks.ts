@@ -6,6 +6,7 @@ import {
   fetchPosts,
   fetchPostsByTag,
   fetchPostsForCursor,
+  fetchPostsByTagForCursor,
 } from './queries';
 import { PostEntity } from './types';
 
@@ -136,6 +137,53 @@ export const usePostsWithCursor = (
   const fetchNext = async () => {
     try {
       const [nextPosts, nextLatest] = await fetchPostsForCursor(app, latest);
+      setPosts([...posts, ...nextPosts]);
+      setLatest(nextLatest);
+      setHasNext(nextPosts.length > 0);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //初回に先頭からの記事取得をする
+  useEffect(() => {
+    (async () => {
+      await fetchNext();
+    })();
+  }, []);
+
+  return {
+    loading,
+    error,
+    posts,
+    fetchNext,
+    hasNext,
+  };
+};
+
+export const usePostsWithTagWithCursor = (
+  app: firebase.app.App,
+  tag: string
+): HookProcess<{
+  posts: PostEntity[];
+  fetchNext: () => Promise<void>;
+  hasNext: boolean;
+}> => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error>();
+  const [posts, setPosts] = useState<PostEntity[]>([]);
+  const [latest, setLatest] = useState<firebase.firestore.DocumentSnapshot>();
+  const [hasNext, setHasNext] = useState<boolean>();
+
+  const fetchNext = async () => {
+    try {
+      const [nextPosts, nextLatest] = await fetchPostsByTagForCursor(
+        app,
+        tag,
+        latest
+      );
       setPosts([...posts, ...nextPosts]);
       setLatest(nextLatest);
       setHasNext(nextPosts.length > 0);

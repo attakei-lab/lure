@@ -118,3 +118,33 @@ export const fetchPostsForCursor = async (
   const entities = snapshot.docs.map((snap) => snap.data());
   return [await bindAuthors(entities), snapshot.docs.slice(-1)[0]];
 };
+
+/**
+ * 指定タグを含む記事一覧をカーソル付きで取得する。
+ *
+ * 関数実行後の返り値にも含まれているカーソル用スナップショットを引数として受け入れる。
+ * 正しいスナップショットであれば、そのスナップショットより先の一覧情報を取得する。
+ *
+ * @param app 記事取得対象のFirebaseアプリケーション
+ * @param cursor 抽出始点となるスナップショット。指定しないと先頭からの扱い
+ * @returns 抽出した記事一覧をもとにした記事エンティティ一覧と、最後のスナップショット
+ */
+export const fetchPostsByTagForCursor = async (
+  app: firebase.app.App,
+  tag: string,
+  cursor?: firebase.firestore.DocumentSnapshot
+): Promise<[PostEntity[], firebase.firestore.DocumentSnapshot]> => {
+  let ref = app
+    .firestore()
+    .collection(`posts`)
+    .withConverter(postFirebaseConverter)
+    .where('tags', 'array-contains', tag)
+    .orderBy('updatedAt', 'desc')
+    .limit(10); // TODO: どこかで切り出す
+  if (cursor) {
+    ref = ref.startAfter(cursor);
+  }
+  const snapshot = await ref.get();
+  const entities = snapshot.docs.map((snap) => snap.data());
+  return [await bindAuthors(entities), snapshot.docs.slice(-1)[0]];
+};
