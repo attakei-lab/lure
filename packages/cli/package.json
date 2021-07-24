@@ -1,8 +1,12 @@
 {
-  "name": "@attakei/lure-cli",
+  "name": "@attakei-lab/lure-cli",
   "version": "0.1.0",
   "description": "CLI tool for administrator",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/attakei-lab"
+  },
+  "repository": "https://github.com/attakei-lab/lure",
   "bin": {
     "lure": "dist/index.js"
   },
