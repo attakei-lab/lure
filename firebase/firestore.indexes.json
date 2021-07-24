@@ -9,7 +9,7 @@
           "arrayConfig": "CONTAINS"
         },
         {
-          "fieldPath": "updated",
+          "fieldPath": "updatedAt",
           "order": "DESCENDING"
         }
       ]
