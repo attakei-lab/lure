@@ -15,7 +15,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^9.8.0",
-    "firebase-functions": "^3.14.1"
+    "firebase-functions": "^3.14.1",
+    "sentence-splitter": "^3.2.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
