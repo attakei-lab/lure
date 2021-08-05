@@ -1,3 +1,5 @@
+import { JSDOM } from 'jsdom';
+import marked from 'marked';
 import { TxtNode, TxtParentNode } from '@textlint/ast-node-types';
 import { split, Syntax, StrNode } from 'sentence-splitter';
 
@@ -61,4 +63,21 @@ export const parseSentences = (text: string): string[] => {
     sentences = [...sentences, ...func(node)];
   });
   return sentences;
+};
+
+/**
+ * Markdownのソースから、文章相当の箇所をピックアップする
+ *
+ * @param text - 対象となるMarkdownソース
+ * @returns 文章（段落）の配列。段落のため、1要素が複数の単文を含むケースがある
+ */
+export const parseContent = (text: string): string[] => {
+  const dom = new JSDOM(`<body>${marked(text)}</body>`);
+  const doc = dom.window.document;
+  return doc
+    .querySelector('body')!
+    .textContent!.trim()
+    .split(/\n+/)
+    .map((v) => v.trim())
+    .filter((v) => v !== '');
 };
