@@ -3,15 +3,28 @@ import { split, Syntax, StrNode } from 'sentence-splitter';
 
 type TokenMap = Map<string, number>;
 
+/**
+ * 検索用トークン生成器
+ *
+ * n-gramをベースにして、テキストから検索用トークンを生成する
+ */
 export class SearchTokenizer {
   protected size: number;
   public readonly tokens: TokenMap;
 
+  /**
+   * @param size - n-gramの文字列長
+   */
   public constructor(size: number) {
     this.size = size;
     this.tokens = new Map<string, number>();
   }
 
+  /**
+   * 新しい文を追加する
+   *
+   * @param source - 対象となる文章（単文）
+   */
   public update(source: string) {
     for (let i = 0; i < source.length; i++) {
       if (i + this.size > source.length) {
@@ -23,6 +36,12 @@ export class SearchTokenizer {
   }
 }
 
+/**
+ * 段落を構成する複数の文章を単文のリストにする。
+ *
+ * @param text - 段落の文章
+ * @returns 分割された単文の配列
+ */
 export const parseSentences = (text: string): string[] => {
   let sentences: string[] = [];
   const nodes = split(text);
